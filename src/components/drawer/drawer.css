@@ -1,0 +1,28 @@
+.MuiDrawer-root{
+    background-color: rgba(0, 0, 0, 0);
+}
+.MuiDrawer-root .MuiBackdrop-root{
+    background-color: rgba(0, 0, 0, 0);
+
+}
+.MuiBox-root{
+    height: 100vh;
+    background-color: #5C5470;
+    padding: 0px !important;
+}
+.MuiPaper-root{
+    background-color: #352F44 !important;
+    
+}
+
+.MuiTypography-root{
+    font-family: 'Bungee', sans-serif !important;
+    font-size: 1.4rem !important;
+    color: white !important;
+}
+.MuiTypography-root:hover{
+    font-family: 'Bungee', sans-serif !important;
+    font-size: 1.4rem !important;
+    color: rgb(239 68 68) !important;
+
+}

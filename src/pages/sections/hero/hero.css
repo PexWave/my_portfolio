@@ -1,0 +1,24 @@
+.hero{
+    height: 100vh;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-repeat: repeat; 
+
+}
+
+.hero-image{
+    height: 100px;
+    background-image: url('/assets/images/nobghero.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.bungee{
+    font-family: 'Bungee', sans-serif;
+}
+span span{
+    font-family: 'Bungee Shade', sans-serif;
+}
