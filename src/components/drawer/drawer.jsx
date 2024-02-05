@@ -18,8 +18,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import '@fontsource/bungee';
-import '@fontsource/bungee-shade';
+
+import { scroller } from 'react-scroll';
 
 //css files
 import './drawer.css'
@@ -31,6 +31,8 @@ function ResponsiveDrawer({window, main: Home}) {
   const [isClosing, setIsClosing] = React.useState(false);
   const theme = useTheme();
   const matches_sm = useMediaQuery(theme.breakpoints.up('sm'));
+
+
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -51,12 +53,17 @@ function ResponsiveDrawer({window, main: Home}) {
     <div>
       <Toolbar />
       <List className='!p-5'>
-        {['Home', 'About', 'Services', 'Portfolio', 'Blog', 'Contact'].map((text, index) => (
+        {['Home', 'About', 'Portfolio', 'Blog'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
 
-              <ListItemText primary={text} />
+          <ListItemButton onClick={() => {
+                const section = document.querySelector(`#${text}`);
+                section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            }}>
+              
+              <ListItemText primary={text.toUpperCase()}/>
             </ListItemButton>
+
           </ListItem>
         ))}
       </List>
@@ -101,7 +108,7 @@ function ResponsiveDrawer({window, main: Home}) {
       
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 },  }}
+        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 },  }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -125,10 +132,9 @@ function ResponsiveDrawer({window, main: Home}) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { xs: 'none', lg: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
-          open={matches_sm}
         >
           {drawer}
         </Drawer>

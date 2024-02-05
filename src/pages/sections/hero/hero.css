@@ -1,24 +1,18 @@
 .hero{
-    height: 100vh;
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    background-repeat: repeat; 
-
-}
-
-.hero-image{
-    height: 100px;
-    background-image: url('/assets/images/nobghero.png');
+    background-image: url('/assets/images/bgflag.jpg');
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
 }
 
-.bungee{
-    font-family: 'Bungee', sans-serif;
+
+.vogue{
+    font-family: 'IBM Plex Sans', sans-serif !important;
 }
 span span{
-    font-family: 'Bungee Shade', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+.shadow{
+    text-shadow: 0 0 4px #050502d0;
 }

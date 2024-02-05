@@ -7,22 +7,21 @@
 }
 .MuiBox-root{
     height: 100vh;
-    background-color: #5C5470;
+
     padding: 0px !important;
 }
 .MuiPaper-root{
-    background-color: #352F44 !important;
+    background-color:   #030011 !important;
     
 }
 
 .MuiTypography-root{
-    font-family: 'Bungee', sans-serif !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
     font-size: 1.4rem !important;
-    color: white !important;
+    color: #FAF0E6 !important;
 }
 .MuiTypography-root:hover{
-    font-family: 'Bungee', sans-serif !important;
     font-size: 1.4rem !important;
-    color: rgb(239 68 68) !important;
+    color: rgb(212, 50, 185) !important;
 
 }

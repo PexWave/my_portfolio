@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'vogue';
+    src: local('fonts'), url(../fonts/vogue/TheBillionButterflyPersonal-lgopX.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+@font-face {
+    font-family: 'vogueItalic';
+    src: local('fonts'), url(../fonts/vogue/TheBillionButterflyPersonalItalic-9Y1v5.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
