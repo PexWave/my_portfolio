@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,14 +17,12 @@ import './App.css'
 //pages
 import Cms from './pages/cms/cms.jsx'
 import AdminDashboard from './pages/cms/sections/dashboard/dashboard.jsx';
-
 import Signin from './pages/signin/signin.jsx';
 import Navbar from './components/navbar.jsx'
 import Home from './pages/home/home.jsx'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

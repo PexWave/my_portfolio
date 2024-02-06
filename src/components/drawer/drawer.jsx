@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, ThemeProvider, createTheme  } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { scroller } from 'react-scroll';
@@ -26,12 +26,11 @@ import './drawer.css'
 
 const drawerWidth = 290;
 
-function ResponsiveDrawer({window, main: Home, navitems}) {
+function ResponsiveDrawer({window, theme, main: Home, navitems}) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const theme = useTheme();
-  const matches_sm = useMediaQuery(theme.breakpoints.up('sm'));
-
+  const use_theme = useTheme();
+  const matches_sm = useMediaQuery(use_theme.breakpoints.up('sm'));
 
 
   const handleDrawerClose = () => {
@@ -74,7 +73,9 @@ function ResponsiveDrawer({window, main: Home, navitems}) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex', backgroundColor:'white', }}>
+    <ThemeProvider theme={theme}>
+
+    <Box sx={{ display: 'flex',  }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -108,7 +109,7 @@ function ResponsiveDrawer({window, main: Home, navitems}) {
       
       <Box
         component="nav"
-        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 },  }}
+        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -134,6 +135,7 @@ function ResponsiveDrawer({window, main: Home, navitems}) {
           sx={{
             display: { xs: 'none', lg: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            
           }}
         >
           {drawer}
@@ -151,6 +153,9 @@ function ResponsiveDrawer({window, main: Home, navitems}) {
 
       </Box>
     </Box>
+    
+    </ThemeProvider>
+
   );
 }
 

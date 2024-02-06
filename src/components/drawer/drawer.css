@@ -10,18 +10,18 @@
 
     padding: 0px !important;
 }
-.MuiPaper-root{
-    background-color:   #030011 !important;
+/* .MuiPaper-root{
+    background-color:   #030011;
     
-}
+} */
 
-.MuiTypography-root{
+/* .MuiTypography-root{
     font-family: 'IBM Plex Sans', sans-serif !important;
     font-size: 1.4rem !important;
     color: #FAF0E6 !important;
-}
-.MuiTypography-root:hover{
+} */
+/* .MuiTypography-root:hover{
     font-size: 1.4rem !important;
     color: rgb(212, 50, 185) !important;
 
-}
+} */
