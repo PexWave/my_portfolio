@@ -6,7 +6,7 @@ export default function Navbar({main:Home}) {
   return (
     <div id="navbar">
           
-        <ResponsiveDrawer main={Home}/>
+        <ResponsiveDrawer main={Home} navitems={['Home', 'About', 'Portfolio', 'Blog']} />
     </div>
   )
 }

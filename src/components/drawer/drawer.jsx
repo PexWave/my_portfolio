@@ -26,7 +26,7 @@ import './drawer.css'
 
 const drawerWidth = 290;
 
-function ResponsiveDrawer({window, main: Home}) {
+function ResponsiveDrawer({window, main: Home, navitems}) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const theme = useTheme();
@@ -53,7 +53,7 @@ function ResponsiveDrawer({window, main: Home}) {
     <div>
       <Toolbar />
       <List className='!p-5'>
-        {['Home', 'About', 'Portfolio', 'Blog'].map((text, index) => (
+        {navitems.map((text, index) => (
           <ListItem key={text} disablePadding>
 
           <ListItemButton onClick={() => {
