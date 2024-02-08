@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'; 
+import { signIn } from '../../api/signin'
 
 export default function Signin() {
 
@@ -11,8 +12,8 @@ export default function Signin() {
   const {register, handleSubmit, watch, formState: { errors } } = useForm();
 
 
-  const handleSignIn = (formData) => {
-
+  const handleSignIn = (evt) => {
+          signIn(formData);
   };
 
   const handleError = (errors) => {
