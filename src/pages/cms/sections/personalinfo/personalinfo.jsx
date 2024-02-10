@@ -1,5 +1,12 @@
 import React from 'react'
 
+//hooks
+import useAuth from "../../../../hooks/useAuth";
+
+
+//api functions
+import logout from '../../../../api/signout';
+
 //components
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,11 +16,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import InputAdornment from '@mui/material/InputAdornment';
 
 export default function PersonalInfo() {
+  const { auth } = useAuth();
 
   const personalInfoInputs = [{id:1,input:'First Name'}, {id:2,input:'Middle Name'}, {id:3,input:'Last Name'}, {id:4,input:'Position'}, {id:5,input:'Address'}, {id:6,input:'Email'}, {id:7,input:'Phone Number'}, {id:8,input:'Facebook Link'}, {id:9,input:'Instagram Link'}];
   
-  const inputRef = React.useRef();
-   
   const [isActive, setIsActive] = React.useState(undefined);
   const handleActive = (id) => setIsActive(id);
   const handleDeactivate = () => setIsActive(undefined);
@@ -25,9 +31,22 @@ export default function PersonalInfo() {
 
   }
 
+  const handleLogout = async () => {
+    try {
+      await logout(auth); // Call the imported logout function
+      console.log("called");
+
+      navigate('/signin');
+    } catch (err) {
+      // Handle errors
+    }
+  };
+
   return (
     <div id='Dashboard' className='relative flex flex-col justify-center items-center gap-10 pt-60 3xl:p-0 bg-tertiary h-min'>
-          
+
+            <button className='bg-red-700 p-5 text-white vogue' onClick={handleLogout} >logout</button>
+
             <div className='absolute flex 3xltop-10 3xl:right-16 right-6 top-16 flex-col gap-2'>
 
                  <span className='vogue'>Resume</span>

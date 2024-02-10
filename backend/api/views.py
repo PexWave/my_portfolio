@@ -1,7 +1,115 @@
-from django.contrib.auth.models import Group, User
+from oauth2_provider.models import RefreshToken
+from django.contrib.auth.models import Group
 from rest_framework import permissions, viewsets
-
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action, api_view, permission_classes
 from .serializers import GroupSerializer, UserSerializer
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
+from django.conf import settings
+from requests.auth import HTTPBasicAuth
+import requests
+import base64
+import os
+User = get_user_model()
+
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    url = os.getenv('TOKEN_URL')
+    client_id = os.getenv('AUTHENTICATOR_ID')
+    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+
+    data = {
+        'grant_type': 'password',
+        'username': username,
+        'password': password,
+    }
+
+    auth = HTTPBasicAuth(client_id, client_secret)
+
+    response = requests.post(url, data=data, auth=auth)
+    
+    if response.status_code == 200:
+        httpres = Response(
+            {"access_token":response.json().get('refresh_token'),
+            "user":base64.b64encode(format(username).encode("utf-8")),
+            "res":response.json()
+            })
+        httpres.set_cookie('refresh_token', response.json().get('refresh_token'), httponly=True, secure=True)
+
+        return httpres
+    else:
+        return Response({'error': 'Invalid credentials'}, status=401)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def refresh_token(request):
+
+    url = os.getenv('TOKEN_URL')
+    client_id = os.getenv('AUTHENTICATOR_ID')
+    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+
+    refresh_token = request.COOKIES.get('refresh_token')
+    
+
+    data = {
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token,
+        "client_id":client_id,
+        "client_secret":client_secret
+    } 
+
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+    response = requests.post(url, headers=headers, data=data)
+
+    if response.status_code == 200:
+
+        httpres = Response(
+            {"access_token":response.json().get('refresh_token'),
+            "user":base64.b64encode(format("user").encode("utf-8")),
+            })
+        # httpres.set_cookie('refresh_token', response.json().get('refresh_token'), httponly=True, secure=True)
+        print("REFRESHED!!!!!")
+        print(refresh_token)
+        return httpres
+    else:
+        print(response.json())
+        return Response({'error': 'Invalid credentials'}, status=401)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def logout(request):
+    url = os.getenv('REVOKE_TOKEN_URL')
+    client_id = os.getenv('AUTHENTICATOR_ID')
+    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+
+    access_token = request.data.get('access_token')
+    print(access_token)
+    data = {
+        "token": access_token,
+        "client_id":client_id,
+        "client_secret":client_secret
+    } 
+
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+    response = requests.post(url, headers=headers, data=data)
+    
+    if response.status_code == 200:
+
+        print("logged out")
+        return Response("logged out!")
+    else:
+        print(response.json())
+        return Response({'error': 'Invalid credentials'}, status=401)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -11,6 +119,30 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+    def get_permissions(self):
+        if self.action == 'list':
+            return [permissions.IsAdminUser()]
+        elif self.action == 'create':
+            return [AllowAny()]
+        else:
+            return super().get_permissions()
+
+
+
+
+    def perform_create(self, serializer):
+        password = self.request.data['password']
+        password2 = self.request.data['password2']
+        if (password==password2):
+            serializer.save()
+            return Response('User was created')
+        else:
+            return Response('Password did not match')
+            
+
+
 
 
 class GroupViewSet(viewsets.ModelViewSet):

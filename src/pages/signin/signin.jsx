@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'; 
-import { signIn } from '../../api/signin'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { signIn, getData } from '../../api/signin'
+import useAuth from '../../hooks/useAuth';
+import AuthContext from '../../context/AuthProvider';
 
 export default function Signin() {
 
+  const {auth, setAuth} = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/cms";
+  
   const [formData, setformData] = useState({
     email: "",
     password: "",
@@ -13,7 +22,7 @@ export default function Signin() {
 
 
   const handleSignIn = (evt) => {
-          signIn(formData);
+    signIn(formData,setAuth,navigate,from);
   };
 
   const handleError = (errors) => {
