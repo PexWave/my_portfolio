@@ -25,7 +25,7 @@ async function signIn(formData, setAuth, navigate, from){
       const accessToken = response?.data?.access_token;
       const user = response?.data?.user;
       
-      setAuth({user:user, accessToken:accessToken});
+      setAuth({user:user, access_token:accessToken});
       
       navigate(from, { replace: true });
 

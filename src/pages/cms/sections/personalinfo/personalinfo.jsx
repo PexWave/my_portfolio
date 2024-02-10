@@ -2,6 +2,7 @@ import React from 'react'
 
 //hooks
 import useAuth from "../../../../hooks/useAuth";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 
 //api functions
@@ -17,6 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 export default function PersonalInfo() {
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const personalInfoInputs = [{id:1,input:'First Name'}, {id:2,input:'Middle Name'}, {id:3,input:'Last Name'}, {id:4,input:'Position'}, {id:5,input:'Address'}, {id:6,input:'Email'}, {id:7,input:'Phone Number'}, {id:8,input:'Facebook Link'}, {id:9,input:'Instagram Link'}];
   
@@ -33,10 +35,9 @@ export default function PersonalInfo() {
 
   const handleLogout = async () => {
     try {
-      await logout(auth); // Call the imported logout function
-      console.log("called");
 
-      navigate('/signin');
+      await logout(auth,navigate); // Call the imported logout function
+
     } catch (err) {
       // Handle errors
     }

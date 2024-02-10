@@ -1,7 +1,7 @@
 import {baseAxios} from "./axios";
 
 
-export default async function logout(auth) {
+export default async function logout(auth, navigate) {
 
     const data = {"access_token":auth?.access_token}
 
@@ -12,6 +12,7 @@ export default async function logout(auth) {
             headers: { 'Content-Type': 'application/json' },
         }
       );
+        navigate('/signin');
 
       } 
       catch (err) {
