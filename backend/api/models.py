@@ -5,6 +5,7 @@ class User(AbstractUser):
     position = models.CharField(max_length=100, null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
+    self_description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.username

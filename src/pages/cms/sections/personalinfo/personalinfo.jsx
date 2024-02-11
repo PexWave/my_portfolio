@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 
 //hooks
 import useAuth from "../../../../hooks/useAuth";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useForm } from 'react-hook-form'; 
 
 
 //api functions
 import logout from '../../../../api/signout';
+import {savePersonalInfo} from '../../../../api/savepersonalinfo';
 
 //components
 import Box from '@mui/material/Box';
@@ -17,21 +19,65 @@ import EditIcon from '@mui/icons-material/Edit';
 import InputAdornment from '@mui/material/InputAdornment';
 
 export default function PersonalInfo() {
-  const { auth } = useAuth();
-  const navigate = useNavigate();
 
-  const personalInfoInputs = [{id:1,input:'First Name'}, {id:2,input:'Middle Name'}, {id:3,input:'Last Name'}, {id:4,input:'Position'}, {id:5,input:'Address'}, {id:6,input:'Email'}, {id:7,input:'Phone Number'}, {id:8,input:'Facebook Link'}, {id:9,input:'Instagram Link'}];
-  
+  const personalInfoInputs = [
+    {id:1,name:'firstName',input:'First Name'},
+    {id:2,name:'middleName',input:'Middle Name'},
+    {id:3,name:'lastName',input:'Last Name'},
+    {id:4,name:'position',input:'Position'},
+    {id:5,name:'address',input:'Address'},
+    {id:6,name:'email',input:'Email'},
+    {id:7,name:'phoneNumber',input:'Phone Number'},
+    {id:8,name:'facebookLink',input:'Facebook Link'},
+    {id:9,name:'instagramLink',input:'Instagram Link'}
+  ];
+  const [formData, setformData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName:"",
+    position:"",
+    address:"",
+    email:"",
+    phoneNumber:"",
+    facebookLink:"",
+    instagramLink:"",
+    selfDescription:"",
+  });
+
+  const {register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { auth } = useAuth();
+  const navigate = useNavigate();  
+
   const [isActive, setIsActive] = React.useState(undefined);
   const handleActive = (id) => setIsActive(id);
   const handleDeactivate = () => setIsActive(undefined);
 
 
+  const handleChange = (evt) => {
+
+    console.log(evt.target.value);
+    setformData( currData => {
+        return { 
+            ...currData,
+            [evt.target.name]: evt.target.value,
+        };
+    });
+  };
+  
   const onClickOutsideListener = () => {
     document.removeEventListener("click", onClickOutsideListener);
     handleDeactivate(false);
 
   }
+
+  const handleFormSubmit = (evt) => {
+    savePersonalInfo(formData);
+  };
+
+  const handleError = (errors) => {
+    console.log(errors);
+  }
+
 
   const handleLogout = async () => {
     try {
@@ -69,7 +115,7 @@ export default function PersonalInfo() {
                     height: 'min-content',
                   }}
                   noValidate
-                  
+                  onSubmit={handleSubmit(handleFormSubmit, handleError)}
                   autoComplete="off"
                   className='flex flex-col md:col-start-2 md:col-span-2 col-start-1 justify-center items-center'
                 >
@@ -78,6 +124,7 @@ export default function PersonalInfo() {
                     personalInfoInputs.map((input, key) => (
                       <TextField disabled={isActive !== input.id}
                       key={key}
+                      {...register(`${input.name}`)} value={formData[`${input.name}`]} onChange={handleChange} name={input.name}
                       id="standard-basic" 
                       InputProps={{
                         endAdornment: (
@@ -97,28 +144,35 @@ export default function PersonalInfo() {
                     ))
                   }
 
-
-            </Box>
                   <TextField
                     id="standard-multiline-static"
+                    {...register('selfDesription')} value={formData.selfDescription} onChange={handleChange} name='selfDescription'
+
                     label="Summary"
                     multiline
                     rows={10}
                     sx={{width:{xs:400,md:800}}}
                     variant="standard"
-                  />
+                  />  
+
+
+                  <Button 
+                    type='submit'
+                    className='vogue !text-xl !max-w-min'
+                    sx={{':hover': {
+                      backgroundColor: 'green',
+                      color: 'white'
+                    },}} 
+                    variant="outlined">
+                    
+                      Save</Button>
+                    </Box>
+
 
             </div>
 
 
-            <Button 
-            className='vogue !text-xl'
-            sx={{':hover': {
-              backgroundColor: 'green',
-              color: 'white'
-            },}} 
-            variant="outlined">
-              Save</Button>
+
 
     </div>
   )

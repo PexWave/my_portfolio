@@ -93,7 +93,7 @@ OAUTH2_PROVIDER = {
         # Enable and configure RP-Initiated Logout
     "OIDC_RP_INITIATED_LOGOUT_ENABLED": True,
     "OIDC_RP_INITIATED_LOGOUT_ALWAYS_PROMPT": True,
-    "ACCESS_TOKEN_EXPIRE_SECONDS": 300,
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 36000,
     "REFRESH_TOKEN_EXPIRE_SECONDS": 36000,
     "ROTATE_REFRESH_TOKEN": False
     # ... any other settings you want

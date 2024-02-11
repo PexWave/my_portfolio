@@ -12,6 +12,7 @@ async function signIn(formData, setAuth, navigate, from){
     postData.append('username', user);
     postData.append('password', pwd);
     
+    console.log(postData);
     
     try {
       const response = await baseAxios.post('login/',

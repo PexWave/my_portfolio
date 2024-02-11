@@ -1,9 +1,10 @@
 from oauth2_provider.models import RefreshToken
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
 from django.contrib.auth.models import Group
 from rest_framework import permissions, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action, api_view, permission_classes
-from .serializers import GroupSerializer, UserSerializer
+from .serializers import GroupSerializer, UserSerializer, PersonalInfoSerializer
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
@@ -13,8 +14,6 @@ import requests
 import base64
 import os
 User = get_user_model()
-
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -118,7 +117,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [TokenHasReadWriteScope]
 
 
     def get_permissions(self):
@@ -140,9 +139,23 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response('User was created')
         else:
             return Response('Password did not match')
-            
 
+    
+    def update(self, request, *args, **kwargs):
 
+        try:
+            user = self.request.user
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(data=serializer.data, status=HTTP_201_CREATED)
+            return Response(data="wrong parameters", status=HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            print("wpw")
+            print(e)
+    
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -152,3 +165,31 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+
+class PersonalInfoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = PersonalInfoSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, TokenHasReadWriteScope]
+
+
+    def partial_update(self, request, *args, **kwargs):
+
+        try:
+            user = self.request.user
+            instance = self.get_object()
+            print(user)
+            serializer = BlogSerializer(instance, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(data=serializer.data, status=HTTP_201_CREATED)
+            return Response(data="wrong parameters", status=HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            print("wpw")
+            print(e)
+    
