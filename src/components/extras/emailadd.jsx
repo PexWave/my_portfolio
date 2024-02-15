@@ -4,12 +4,12 @@ import React from 'react'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 
-export default function Emailadd() {
+export default function Emailadd({email}) {
   return (
  
         <>
             <AlternateEmailIcon className='mt-1'/>
-            asakilsarhan@gmail.com
+            {email}
         </>
     )
 }

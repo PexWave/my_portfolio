@@ -40,11 +40,11 @@ function App() {
                 <Route path="signin" element={<Signin />} />
                 <Route path="unauthorized" element={<Unauthorized />} />
                 
-                {/* <Route element={<PersistLogin />}>
-                  <Route element={<RequireAuth />}> */}
+                <Route element={<PersistLogin />}>
+                  <Route element={<RequireAuth />}>
                     <Route path="/cms" element={<Cms main={AdminDashboard} />} />
-                  {/* </Route>
-                </Route> */}
+                  </Route>
+                </Route>
 
             </Routes>
      

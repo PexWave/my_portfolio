@@ -5,11 +5,11 @@ import React from 'react'
 import AddIcCallSharpIcon from '@mui/icons-material/AddIcCallSharp';
 
 
-export default function Phonenumber() {
+export default function Phonenumber({number}) {
   return (
         <>
         <AddIcCallSharpIcon className='text-white mt-1' />
-        +639751735720
+        {number}
         </>
     )
 }

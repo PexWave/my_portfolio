@@ -6,6 +6,10 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet, basename='user')
+router.register(r'socialmedias', views.SocMedViewSet, basename='socialmedia')
+router.register(r'projects', views.ProjectViewSet, basename='project')
+router.register(r'blogs', views.BlogViewSet, basename='blog')
+
 router.register(r'groups', views.GroupViewSet)
 
 

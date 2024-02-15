@@ -12,17 +12,18 @@ import Emailadd from '../../../components/extras/emailadd'
 import Myname from '../../../components/extras/myname'
 import Mylocation from '../../../components/extras/location'
 
-export default function About() {
+export default function About({personalInfo}) {
 
 
   return (
     <div id='About' className='flex justify-center items-center h-screen gradient2'>
-
-      <div className='grid grid-flow-row m-28 xl:space-x-40 xl:grid-cols-3'>
+        {personalInfo?.map((info,index) => {
+          return (
+      <div key={index} className='grid grid-flow-row m-28 xl:space-x-40 xl:grid-cols-3'>
      
           <div className='flex flex-col justify-center items-center gap-2 xl:col-start-1'>
               <span className='text-white whitespace-nowrap text-4xl'>
-                SARHAN M. ASAKIL
+                {info.first_name} {info.middle_name} {info.last_name}
               </span>
               <span className='text-white whitespace-nowrap text-3xl'>
               Python Developer  
@@ -35,21 +36,21 @@ export default function About() {
 
             <div className='text-white xl:col-span-2 space-y-4'>
                 <span>
-                Born in 2000, AB type living in USA. We provide on-screen design for websites and apps, as well as front-end implementation. We will continue to pursue a wide range of expressions and better code by pursuing our “likes”.
+                {info.self_description}
                 </span>
 
                 <div className='grid grid-cols-2 grid-flow-row'>
                     <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Phonenumber/>
+                        <Phonenumber number={info.phone_number}/>
                     </span>
                     <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Emailadd/>
+                        <Emailadd email={info.email}/>
                     </span>
                     <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Myname/>
+                        <Myname name={info.first_name + " " + info.last_name}/>
                     </span>
                     <span className='flex flex-row gap-2 whitespace-nowrap my-2 text-xl'>
-                        <Mylocation/>
+                        <Mylocation address={info.address}/>
                     </span>
                 </div>
 
@@ -57,7 +58,8 @@ export default function About() {
                 
             </div>
       </div>
-
+          )
+        })}
     </div>
   )
 }

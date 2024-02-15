@@ -1,13 +1,15 @@
 from oauth2_provider.models import RefreshToken
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
+from .models import SocialMedia, Blog, Project
 from django.contrib.auth.models import Group
 from rest_framework import permissions, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action, api_view, permission_classes
-from .serializers import GroupSerializer, UserSerializer, PersonalInfoSerializer
+from .serializers import *
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from django.db import transaction
 from django.conf import settings
 from requests.auth import HTTPBasicAuth
 import requests
@@ -122,13 +124,22 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == 'list':
-            return [permissions.IsAdminUser()]
+            return [permissions.IsAuthenticatedOrReadOnly()]
         elif self.action == 'create':
             return [AllowAny()]
         else:
             return super().get_permissions()
 
 
+        return Response(serializer.data)
+
+
+    def list(self,request):
+        queryset = User.objects.filter(username='admin')
+        print(self.request.user)
+        serializer = UserSerializer(queryset, many=True, context={'request': request})
+
+        return Response(serializer.data)
 
 
     def perform_create(self, serializer):
@@ -143,20 +154,85 @@ class UserViewSet(viewsets.ModelViewSet):
     
     def update(self, request, *args, **kwargs):
 
-        try:
-            user = self.request.user
-            instance = self.get_object()
-            serializer = self.get_serializer(instance, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(data=serializer.data, status=HTTP_201_CREATED)
-            return Response(data="wrong parameters", status=HTTP_400_BAD_REQUEST)
+        user = self.request.user
+        instance = self.get_object()
 
-        except Exception as e:
-            print("wpw")
-            print(e)
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=201)
+        return Response(data="wrong parameters", status=400)
+
+
+class SocMedViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = SocialMedia.objects.all()
+    serializer_class = SocialMediaSerializer
+    permission_classes = [TokenHasReadWriteScope]
+
+
+    def get_permissions(self):
+        if self.action == 'list':
+            return [permissions.IsAuthenticatedOrReadOnly()]
+        elif self.action == 'create':
+            return [AllowAny()]
+        else:
+            return super().get_permissions()
+
+    def list(self,request):
+        queryset = SocialMedia.objects.filter(user__username='admin')
+        serializer = SocialMediaSerializer(queryset, many=True, context={'request': request})
+
+        return Response(serializer.data)
+
+
+    def update(self, request, *args, **kwargs):
+
+        user = self.request.user
+        instance = self.get_object()
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=201)
+        return Response(data="wrong parameters", status=400)
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
     
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [TokenHasReadWriteScope]
 
+    def list(self,request):
+        queryset = Project.objects.filter(user=self.request.user)
+        serializer = ProjectSerializer(queryset, many=True, context={'request': request})
+
+        return Response(serializer.data)
+
+class BlogViewSet(viewsets.ModelViewSet):
+
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    permission_classes = [TokenHasReadWriteScope]
+
+   
+    def get_permissions(self):
+        if self.action == 'list':
+            return [permissions.IsAuthenticatedOrReadOnly()]
+        elif self.action == 'create':
+            return [AllowAny()]
+        else:
+            return super().get_permissions()
+
+
+    def list(self,request):
+        queryset = Blog.objects.filter(user__username='admin')
+        serializer = BlogSerializer(queryset, many=True, context={'request': request})
+
+        return Response(serializer.data)
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -165,31 +241,3 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-
-
-class PersonalInfoViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = PersonalInfoSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, TokenHasReadWriteScope]
-
-
-    def partial_update(self, request, *args, **kwargs):
-
-        try:
-            user = self.request.user
-            instance = self.get_object()
-            print(user)
-            serializer = BlogSerializer(instance, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(data=serializer.data, status=HTTP_201_CREATED)
-            return Response(data="wrong parameters", status=HTTP_400_BAD_REQUEST)
-
-        except Exception as e:
-            print("wpw")
-            print(e)
-    
