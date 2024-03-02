@@ -20,7 +20,7 @@ class SocialMediaSerializer(serializers.HyperlinkedModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
-        fields = ['url','title', 'img', 'tag', 'description']
+        fields = ['url', 'id', 'title', 'img', 'tag', 'description']
 
     def create(self, validated_data):
         auth_user = self.context['request'].user

@@ -6,6 +6,14 @@ import ResponsiveDrawer from '../drawer/drawer.jsx'
 export default function Navbar({main:Home}) {
     
   const theme = createTheme({
+    palette: {
+
+      buttonColor: {
+        main: '#09022b',
+
+      },
+
+    },
     components: {
       MuiPaper: {
         styleOverrides: {
@@ -30,7 +38,7 @@ export default function Navbar({main:Home}) {
   return (
     <div id="navbar">
           
-        <ResponsiveDrawer theme={theme} main={Home} navitems={['Home', 'About', 'Portfolio', 'Blog']} />
+        <ResponsiveDrawer theme={theme} main={Home} navitems={['Home', 'About', 'Portfolio', 'Blog', 'Contact']} />
     </div>
   )
 }

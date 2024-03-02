@@ -39,7 +39,7 @@ export default function About({personalInfo}) {
                 {info.self_description}
                 </span>
 
-                <div className='grid grid-cols-2 grid-flow-row'>
+                <div className='grid md:grid-cols-2 grid-cols-1 grid-flow-row'>
                     <span className='flex flex-row gap-2 my-2 text-xl'>
                         <Phonenumber number={info.phone_number}/>
                     </span>

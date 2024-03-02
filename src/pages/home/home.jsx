@@ -8,12 +8,19 @@ import Portfolio from '../sections/portfolio/portfolio'
 //api
 import getPersonalInfo from '../../api/GET/personalinfo';
 import getAllBlogs from '../../api/GET/blogs';
+import getAllProjects from '../../api/GET/projects'
+import ContactPage from '../sections/contact/contact';
+import BlogPage from '../sections/blog/blog';
 
 export default function Home() {
   const [personalInfo, setPersonalInfo] = useState();
   const [blogs, setBlogs] = useState();
+  const [projects, setProjects] = useState();
+
   const getPersonalInfoCallback = getPersonalInfo();
   const getBlogsCallback = getAllBlogs();
+  const getProjectsCallback = getAllProjects();
+
 
   useEffect(() => {
     const getPersonal = async () =>{
@@ -24,20 +31,21 @@ export default function Home() {
       return response;
     };
 
-    return getPersonal;
-  }, []);
+    getPersonal();
 
-  useEffect(() => {
-    const getBlogs = async () =>{
-      const response = await getBlogsCallback();
+    const getProjects = async () =>{
+      const response = await getProjectsCallback();
 
-      setBlogs(response);
-      console.log(response);
+      setProjects(response);
+      console.log(response)
       return response;
     };
 
-    return getBlogs;
+    getProjects();
+   
   }, []);
+
+
 
 
   return (
@@ -45,7 +53,15 @@ export default function Home() {
       <Hero personalInfo={personalInfo}/>
       <About personalInfo={personalInfo}/>
       
-      <Portfolio />
+      <Portfolio projects={projects} />
+
+      <BlogPage blogs={projects}/>
+
+      <ContactPage/>
+
+      
+
+
     </>
   )
 }

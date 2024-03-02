@@ -206,8 +206,18 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [TokenHasReadWriteScope]
 
+    def get_permissions(self):
+        if self.action == 'list':
+            return [permissions.IsAuthenticatedOrReadOnly()]
+        elif self.action == 'create':
+            return [AllowAny()]
+        else:
+            return super().get_permissions()
+
+
+        return Response(serializer.data)
     def list(self,request):
-        queryset = Project.objects.filter(user=self.request.user)
+        queryset = Project.objects.filter(user__username='admin')
         serializer = ProjectSerializer(queryset, many=True, context={'request': request})
 
         return Response(serializer.data)
