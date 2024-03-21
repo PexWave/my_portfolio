@@ -19,7 +19,7 @@ export default function Cms({main: Dashboard}) {
       MuiTypography: {
         styleOverrides: {
           root: {
-            color: 'black',
+            color: 'black !important',
             fontFamily: 'IBM Plex Sans',
             fontSize: '1.4rem'
           },

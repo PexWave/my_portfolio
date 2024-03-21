@@ -20,11 +20,15 @@ router.register(r'groups', views.GroupViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
+
+    #ADMIN AND AUTH ROUTES
     path('admin/', admin.site.urls),
     path('login/', views.login),
     path('logout/', views.logout),
     path('refresh/', views.refresh_token),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

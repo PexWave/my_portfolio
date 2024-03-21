@@ -1,14 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 //hooks
 import useAuth from "../../../../hooks/useAuth";
+
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form'; 
 
 
 //api functions
 import logout from '../../../../api/signout';
-import {savePersonalInfo} from '../../../../api/savepersonalinfo';
+import {savePersonalInfo} from '../../../../api/PUT/savepersonalinfo';
+import getPersonalInfo from '../../../../api/GET/personalinfo';
+
 
 //components
 import Box from '@mui/material/Box';
@@ -20,38 +23,39 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 export default function PersonalInfo() {
 
-  const personalInfoInputs = [
-    {id:1,name:'firstName',input:'First Name'},
-    {id:2,name:'middleName',input:'Middle Name'},
-    {id:3,name:'lastName',input:'Last Name'},
-    {id:4,name:'position',input:'Position'},
-    {id:5,name:'address',input:'Address'},
-    {id:6,name:'email',input:'Email'},
-    {id:7,name:'phoneNumber',input:'Phone Number'},
-    {id:8,name:'facebookLink',input:'Facebook Link'},
-    {id:9,name:'instagramLink',input:'Instagram Link'}
-  ];
   const [formData, setformData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName:"",
+    id: "",
+    first_name: "",
+    middle_name: "",
+    last_name:"",
     position:"",
     address:"",
     email:"",
-    phoneNumber:"",
-    facebookLink:"",
-    instagramLink:"",
-    selfDescription:"",
+    phone_number:"",
+    self_description:"",
   });
 
   const {register, handleSubmit, watch, formState: { errors } } = useForm();
   const { auth } = useAuth();
   const navigate = useNavigate();  
 
-  const [isActive, setIsActive] = React.useState(undefined);
-  const handleActive = (id) => setIsActive(id);
-  const handleDeactivate = () => setIsActive(undefined);
+  //API CALLBACKS
+  const getPersonalInfoCallback = getPersonalInfo();
 
+  //API FUNCTIONS
+  useEffect(() => {
+    const getPersonal = async () =>{
+      const response = await getPersonalInfoCallback();
+
+      setformData(response[0]);
+
+    };
+
+     getPersonal();
+
+  }, []);
+
+  //EVENT FUNCTIONS
 
   const handleChange = (evt) => {
 
@@ -63,21 +67,15 @@ export default function PersonalInfo() {
         };
     });
   };
-  
-  const onClickOutsideListener = () => {
-    document.removeEventListener("click", onClickOutsideListener);
-    handleDeactivate(false);
 
-  }
 
   const handleFormSubmit = (evt) => {
-    savePersonalInfo(formData);
+    savePersonalInfo(formData, auth);
   };
 
   const handleError = (errors) => {
     console.log(errors);
   }
-
 
   const handleLogout = async () => {
     try {
@@ -120,34 +118,119 @@ export default function PersonalInfo() {
                   className='flex flex-col md:col-start-2 md:col-span-2 col-start-1 justify-center items-center'
                 >
 
-                  {
-                    personalInfoInputs.map((input, key) => (
-                      <TextField disabled={isActive !== input.id}
-                      key={key}
-                      {...register(`${input.name}`)} value={formData[`${input.name}`]} onChange={handleChange} name={input.name}
-                      id="standard-basic" 
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <EditIcon className='cursor-pointer' 
-                            onClick={() => {
-                              handleActive(input.id);
-                            }}                       
-  
-                            />
-                            
-                          </InputAdornment>
-                        ),
-                      }}
+
+                <TextField {...register('first_name')} onChange={handleChange} 
+                id="standard-basic" 
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <EditIcon className='cursor-pointer' 
+
+                      />
                       
-                      label={input.input} variant="standard" />
-                    ))
-                  }
+                    </InputAdornment>
+                  ),
+                }}
+                variant="standard" value={formData.first_name == "null" ? "" : formData.first_name} label="First Name" />
+
+
+              <TextField {...register('middle_name')} onChange={handleChange} 
+                id="standard-basic" 
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <EditIcon className='cursor-pointer' 
+
+                      />
+                      
+                    </InputAdornment>
+                  ),
+                }}
+              variant="standard"  value={formData.middle_name == "null" ? "" : formData.middle_name} label="Middle Name" />    
+
+
+
+
+            <TextField {...register('last_name')} onChange={handleChange} 
+              id="standard-basic" 
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <EditIcon className='cursor-pointer' 
+
+                    />
+                    
+                  </InputAdornment>
+                ),
+              }}
+            variant="standard" value={formData.last_name == "null" ? "" : formData.last_name} label="Last Name" />   
+                  
+
+            <TextField {...register('position')} onChange={handleChange} 
+                  id="standard-basic" 
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <EditIcon className='cursor-pointer' 
+
+                        />
+                        
+                      </InputAdornment>
+                    ),
+                  }}
+                variant="standard" label="Position" value={formData.position == "null" ? "" : formData.position} />   
+
+
+                  <TextField {...register('address')} onChange={handleChange} 
+                        id="standard-basic" 
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EditIcon className='cursor-pointer' 
+    
+                              />
+                              
+                            </InputAdornment>
+                          ),
+                        }}
+                      variant="standard" label="Address" value={formData.address == "null" ? "" : formData.address} />   
+
+
+                    <TextField {...register('email')} onChange={handleChange} 
+                        id="standard-basic" 
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EditIcon className='cursor-pointer' 
+    
+                              />
+                              
+                            </InputAdornment>
+                          ),
+                        }}
+                      variant="standard" label="Email" value={formData.email == "null" ? "" : formData.email} />   
+      
+
+                    <TextField {...register('phone_number')} onChange={handleChange} 
+                        id="standard-basic" 
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EditIcon className='cursor-pointer' 
+    
+                              />
+                              
+                            </InputAdornment>
+                          ),
+                        }}
+                      variant="standard" label="Phone Number" value={formData.phone_number == "null" ? "" : formData.phone_number} />   
+
 
                   <TextField
                     id="standard-multiline-static"
-                    {...register('selfDesription')} value={formData.selfDescription} onChange={handleChange} name='selfDescription'
-
+                    {...register('self_description')} value={formData.self_description}
+                    onChange={handleChange} 
+                    name='self_description'
                     label="Summary"
                     multiline
                     rows={10}
@@ -164,9 +247,9 @@ export default function PersonalInfo() {
                       color: 'white'
                     },}} 
                     variant="outlined">
-                    
                       Save</Button>
-                    </Box>
+              
+              </Box>
 
 
             </div>

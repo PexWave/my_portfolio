@@ -22,7 +22,7 @@ User = get_user_model()
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
-
+    print(password)
     url = os.getenv('TOKEN_URL')
     client_id = os.getenv('AUTHENTICATOR_ID')
     client_secret = os.getenv('AUTHENTICATOR_SECRET')
@@ -36,10 +36,10 @@ def login(request):
     auth = HTTPBasicAuth(client_id, client_secret)
 
     response = requests.post(url, data=data, auth=auth)
-    
+    print(url)
     if response.status_code == 200:
         httpres = Response(
-            {"access_token":response.json().get('refresh_token'),
+            {
             "user":base64.b64encode(format(username).encode("utf-8")),
             "res":response.json()
             })
@@ -156,7 +156,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         user = self.request.user
         instance = self.get_object()
-
+        print(user)
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -210,17 +210,41 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return [permissions.IsAuthenticatedOrReadOnly()]
         elif self.action == 'create':
-            return [AllowAny()]
+            return [TokenHasReadWriteScope()]
         else:
             return super().get_permissions()
 
 
         return Response(serializer.data)
+
     def list(self,request):
         queryset = Project.objects.filter(user__username='admin')
         serializer = ProjectSerializer(queryset, many=True, context={'request': request})
 
         return Response(serializer.data)
+
+
+    def create(self, request):
+
+        serializer = self.get_serializer(data=request.data, context={'request': request})
+
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            auth_user = request.user  # Access authenticated user
+            instance = Project.objects.create(user=auth_user, **validated_data)
+
+            return Response("Project Created!", status=201)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=500)
+
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save()
+            return Response('Project was created')
+        else:
+            return Response('Somethin went wrong')
 
 class BlogViewSet(viewsets.ModelViewSet):
 

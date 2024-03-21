@@ -22,11 +22,6 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         model = Project
         fields = ['url', 'id', 'title', 'img', 'tag', 'description']
 
-    def create(self, validated_data):
-        auth_user = self.context['request'].user
-        instance = Project.objects.create(user=auth_user, **validated_data)
-        
-        return instance
 
 
 class BlogSerializer(serializers.HyperlinkedModelSerializer):
@@ -45,7 +40,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'position']
+        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'position']
     
     # def create(self, validated_data):
     #     user_socialmedia_data = validated_data.pop('user_socmed')
