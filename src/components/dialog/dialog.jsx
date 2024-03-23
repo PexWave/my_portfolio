@@ -39,7 +39,7 @@ export default function ResponsiveDialog({elements, data, auth}) {
     id: data.id ? data.id : "",
     tag: data.tag ? data.tag : "",
     title: data.title ? data.title : "",
-    img: data.img ? data.img : "",
+    img: "",
     description: data.description ? data.description : "",
   });
 
@@ -75,7 +75,7 @@ export default function ResponsiveDialog({elements, data, auth}) {
 
   return (
     <>
-
+    
       <Button onClick={()=>handleClickOpen()} >
         {elements}
       </Button>
@@ -85,26 +85,28 @@ export default function ResponsiveDialog({elements, data, auth}) {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        
-
+        sx={{
+          // width: '100%'
+        }}
+        fullWidth={true}
       >
+        <Box        
+        component="form"
+        noValidate
+        onSubmit={handleSubmit(handleFormSubmit, handleError)}
+        autoComplete="off"
+        className='flex flex-col justify-center items-center gap-2 !h-min'
+
+        >
 
         <DialogTitle>
           Project
         </DialogTitle>
 
         <DialogContent
-
           > 
 
-        <Box        
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(handleFormSubmit, handleError)}
-        autoComplete="off"
-        className='flex flex-col justify-center items-center'
 
-        >
 
         <TextField
             autoFocus
@@ -154,7 +156,6 @@ export default function ResponsiveDialog({elements, data, auth}) {
               {...register('img')} 
                 component="label"
                 role={undefined}
-                name="img"
                 onChange={handleChange}
                 variant="contained"
                 tabIndex={-1}
@@ -162,16 +163,18 @@ export default function ResponsiveDialog({elements, data, auth}) {
                 className='!w-40 self-center'
               >
                 Image
-              <VisuallyHiddenInput type="file" />
+              <VisuallyHiddenInput name='img' type="file" />
             </Button>
 
-        </Box>
+
         
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Save</Button>
         </DialogActions>
+
+        </Box>
       </Dialog>
       
 

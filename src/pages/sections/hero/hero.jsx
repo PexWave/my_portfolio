@@ -32,9 +32,17 @@ import Emailadd from '../../../components/extras/emailadd';
 
 export default function Hero({personalInfo}) {
   const [socMedLink, setsocMedLink] = useState();
+  const [hasInfo, setHasInfo] = useState(); // Flag to indicate data availability
+
 
   const getSocMedLinkCallback = getSocmedLink();
 
+    useEffect(() => {
+    if (personalInfo) { // Check if personalInfo is available
+
+        setHasInfo(personalInfo[0]); 
+    }
+  }, [personalInfo]); 
 
   useEffect(() => {
 
@@ -44,10 +52,6 @@ export default function Hero({personalInfo}) {
         setsocMedLink(response);
         return response;
       };
-
-   
-
-
       return getSocMed;
     }, [])
 
@@ -56,14 +60,13 @@ export default function Hero({personalInfo}) {
     <div id='Home' className='hero flex flex-row h-full'>
 
         <div className='flex xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10 h-full'>
-        {personalInfo?.map((info,index) => {
-          return (
-            <div key={index} className='w-min flex flex-col gap-6'>
+
+            <div className='w-min flex flex-col gap-6'>
 
               <span className='flex flex-col gap-2 text-lightbeige lg:text-7xl text-5xl'> 
                  <span  className='bungee block whitespace-nowrap'>MY NAME</span>
-                 <span className='bungee block whitespace-nowrap'>is {info.first_name}</span> 
-                 <span className='text-gradient lg:text-8xl text-6xl'>{info.last_name}</span>
+                 <span className='bungee block whitespace-nowrap'>is {hasInfo?.first_name}</span> 
+                 <span className='text-gradient lg:text-8xl text-6xl'>{hasInfo?.last_name}</span>
               </span>
 
               <div className='flex flex-col'>
@@ -75,23 +78,27 @@ export default function Hero({personalInfo}) {
 
               </div>
 
-              <Button text='Work with me' styles='vogue text-white gradient w-min p-3 px-6 rounded-md whitespace-nowrap transition ease-in-out delay-150 hover:scale-110 duration-300' />
+              <Button text='Work with me' clickfunc={() => {
+                const section = document.querySelector(`#Contact`);
+                section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+
+            }}
+            styles='vogue text-white gradient w-min p-3 px-6 rounded-md whitespace-nowrap transition ease-in-out delay-150 hover:scale-110 duration-300' />
 
 
               <div className='flex flex-row gap-2'>
                   <div className='flex lg:flex-row flex-col lg:gap-24 gap-2 text-white text-xl vogue'>
                       <span className='flex flex-row gap-2'>
-                        <Phonenumber number={info.phone_number}/>
+                        <Phonenumber number={hasInfo?.phone_number}/>
                       </span>
                       <span className='flex flex-row gap-2'>
-                        <Emailadd email={info.email}/>
+                        <Emailadd email={hasInfo?.email}/>
                       </span>
                   </div>
               </div>
 
             </div>
-               )
-              })}
+    
         
         </div>
         

@@ -9,7 +9,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Typography from '@mui/material/Typography';
 
 
-const TransitionsModal = forwardRef(({elements, data, style}, ref) => {
+const ResumeModal = forwardRef(({text, style}, ref) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -20,9 +20,9 @@ const TransitionsModal = forwardRef(({elements, data, style}, ref) => {
   };
 
   return (
-    <div>
+    <>
       
-      <Button className='w-max' onClick={handleOpen} >{elements}</Button>
+      <Button variant="contained" className='w-max' onClick={handleOpen}>{text}</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -52,20 +52,12 @@ const TransitionsModal = forwardRef(({elements, data, style}, ref) => {
 
             <IconButton aria-label='clear' className='w-min place-self-end' onClick={handleClose}> <ClearIcon className='text-white'/> </IconButton>
             
-            <div className='flex justify-center'>
-              <img src={data.img} className='object-cover flex-shrink-0 h-[22rem] w-[22rem]' alt=""  />
-            </div>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              {data.title} 
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              {data.text} 
-            </Typography>
+
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 });
 
-export default TransitionsModal;
+export default ResumeModal;

@@ -20,7 +20,7 @@ class SocialMediaSerializer(serializers.HyperlinkedModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
-        fields = ['url', 'id', 'title', 'img', 'tag', 'description']
+        fields = ['id', 'title', 'img', 'tag', 'description']
 
 
 

@@ -8,7 +8,7 @@ async function updateProject(formData, auth) {
         postData.append(key, value);
       }
 
-      console.log(auth.access_token);
+      console.log(formData);
       
     try {
         const response = await baseAxios.put(`projects/${formData.id}/`,postData,

@@ -20,6 +20,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import InputAdornment from '@mui/material/InputAdornment';
+import ResumeModal from '../../../../components/modal/resumeModal';
 
 export default function PersonalInfo() {
 
@@ -94,12 +95,9 @@ export default function PersonalInfo() {
 
             <div className='absolute flex 3xltop-10 3xl:right-16 right-6 top-16 flex-col gap-2'>
 
-                 <span className='vogue'>Resume</span>
-
 
                  <div className='flex 3xl:flex-row flex-col gap-2'>
-                 <Button sx={{width:100}} variant="contained">View</Button>
-                <Button variant="outlined">Upload</Button>
+                 <ResumeModal text={'Resume'} style={'vogue !text-black'} />
                  </div>
 
             </div>
