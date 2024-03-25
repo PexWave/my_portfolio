@@ -6,6 +6,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action, api_view, permission_classes
 from .serializers import *
+from .pagination import *
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
@@ -205,6 +206,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [TokenHasReadWriteScope]
+    pagination_class = CustomPagination
+
 
     def get_permissions(self):
         if self.action == 'list':
@@ -215,13 +218,13 @@ class ProjectViewSet(viewsets.ModelViewSet):
             return super().get_permissions()
 
 
-        return Response(serializer.data)
-
     def list(self,request):
-        queryset = Project.objects.filter(user__username='admin')
-        serializer = ProjectSerializer(queryset, many=True, context={'request': request})
+        queryset = Project.objects.filter(user__username='admin').order_by('id')  # Order by a field like 'id'
+        page = self.paginate_queryset(queryset)
+        serializer = ProjectSerializer(page, many=True, context={'request': request})
+        
 
-        return Response(serializer.data)
+        return self.get_paginated_response(serializer.data)
 
 
     def create(self, request):

@@ -3,7 +3,7 @@ import { useTheme, ThemeProvider, createTheme  } from '@mui/material/styles';
 
 import ResponsiveDrawer from '../drawer/drawer.jsx'
 
-export default function Navbar({main:Home}) {
+export default function SideBar() {
     
   const theme = createTheme({
     palette: {
@@ -38,7 +38,6 @@ export default function Navbar({main:Home}) {
   return (
     <div id="navbar">
           
-        <ResponsiveDrawer theme={theme} main={Home} navitems={['Home', 'About', 'Portfolio', 'Blog', 'Contact']} />
     </div>
   )
 }

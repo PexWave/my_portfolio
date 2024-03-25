@@ -27,7 +27,7 @@ export default function Porfolio({projects}) {
               <>
               <div className='flex flex-col items-center gap-2'>
                   <div className='flex-shrink-0'>
-                      <img src={data.img} className='object-cover flex-shrink-0 h-[22rem] w-[22rem]' alt="" />
+                      <img src={data?.img} className='object-cover flex-shrink-0 h-[22rem] w-[22rem]' alt="" />
                   </div>
                   <div className='flex flex-col'>
                       <span className='vogue text-white text-xl lg:text-2xl'>

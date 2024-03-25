@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useTheme, ThemeProvider, createTheme  } from '@mui/material/styles';
 
 //components
-import Hero from '../sections/hero/hero'  
-import About from '../sections/about/about'
-import Portfolio from '../sections/portfolio/portfolio'
+import Hero from '../sections/hero/hero';
+import About from '../sections/about/about';
+import Portfolio from '../sections/portfolio/portfolio';
+import ResponsiveDrawer from '../../components/drawer/drawer';
+import Loader from '../../components/catloader/catloader';
 
 //api
 import getPersonalInfo from '../../api/GET/personalinfo';
@@ -12,37 +15,37 @@ import getAllProjects from '../../api/GET/projects'
 import ContactPage from '../sections/contact/contact';
 import BlogPage from '../sections/blog/blog';
 
-export default function Home() {
+export default function Home({theme}) {
   const [personalInfo, setPersonalInfo] = useState();
   const [blogs, setBlogs] = useState();
   const [projects, setProjects] = useState();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPersonalInfoCallback = getPersonalInfo();
   const getBlogsCallback = getAllBlogs();
   const getProjectsCallback = getAllProjects();
 
 
+
   useEffect(() => {
-    const getPersonal = async () =>{
-      const response = await getPersonalInfoCallback();
+    const fetchData = async () => {
+      const personalInfoResponse = await getPersonalInfoCallback();
+      setPersonalInfo(personalInfoResponse);
+      console.log(personalInfoResponse);
 
-      setPersonalInfo(response);
-      console.log(response);
-      return response;
+      const projectsResponse = await getProjectsCallback();
+      setProjects(projectsResponse.results);
+      console.log(projectsResponse.results);
+
+      const blogsResponse = await getBlogsCallback();
+      setBlogs(blogsResponse);
+      console.log(blogsResponse);
+
+      setIsLoading(false);
     };
 
-    getPersonal();
-
-    const getProjects = async () =>{
-      const response = await getProjectsCallback();
-
-      setProjects(response);
-      console.log(response)
-      return response;
-    };
-
-    getProjects();
-   
+    fetchData();
   }, []);
 
 
@@ -50,17 +53,17 @@ export default function Home() {
 
   return (
     <>
-      <Hero personalInfo={personalInfo}/>
-      <About personalInfo={personalInfo}/>
-      
-      <Portfolio projects={projects} />
-
-      <BlogPage blogs={projects}/>
-
-      <ContactPage/>
-
-      
-
+    {isLoading ? <Loader/> :
+          <ResponsiveDrawer theme={theme} main={() => 
+            <>
+            <Hero personalInfo={personalInfo}/>
+            <About personalInfo={personalInfo}/>
+            <Portfolio projects={projects} />
+            <BlogPage blogs={projects}/>
+            <ContactPage/>
+            </>
+      } navitems={['Home', 'About', 'Portfolio', 'Blog', 'Contact']} />
+    }
 
     </>
   )
