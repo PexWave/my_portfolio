@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://sarhanasakil.site/';
+const BASE_URL = 'http://sarhanasakil.site/';
 
 
 export const baseAxios = axios.create({
