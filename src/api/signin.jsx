@@ -18,7 +18,10 @@ async function signIn(formData, setAuth, navigate, from){
       const response = await baseAxios.post('login/',
       postData,
         {
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin":"*"
+          },
             withCredentials: true
           }
     );
