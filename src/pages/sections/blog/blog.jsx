@@ -14,8 +14,12 @@ export default function BlogPage({blogs}) {
 
   return (
     <>
-    <div id="Blog" ref={ref} className='flex flex-row h-min overflow-x-scroll gradient py-10 px-10'>
-
+    <div id="Blog" ref={ref} className='flex flex-row h-min overflow-x-scroll gradient p-36'>
+    <motion.div 
+            initial={{x: "100%", y:"0%"}} 
+            animate={{x:'0%'}}
+            transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
+            whileInView={{x:["-100%","0%"]}}>
         {blogs && blogs?.map((data, index) => (
 
             <TransitionsModal ref={ref} style={'!p-10 grid'} key={index} data={data} elements={              
@@ -29,6 +33,7 @@ export default function BlogPage({blogs}) {
             }/>
             ))
         }
+        </motion.div>
 
     </div>
     </>

@@ -1,9 +1,12 @@
 from oauth2_provider.models import RefreshToken
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
+from django.core.mail import send_mail
+
 from .models import SocialMedia, Blog, Project
 from django.contrib.auth.models import Group
 from rest_framework import permissions, viewsets
 from rest_framework.permissions import AllowAny
+from django.http import FileResponse    
 from rest_framework.decorators import action, api_view, permission_classes
 from .serializers import *
 from .pagination import *
@@ -13,9 +16,12 @@ from django.contrib.auth import authenticate
 from django.db import transaction
 from django.conf import settings
 from requests.auth import HTTPBasicAuth
+from django_sendfile import sendfile
 import requests
 import base64
 import os
+import smtplib
+
 User = get_user_model()
 
 @api_view(['POST'])
@@ -113,6 +119,44 @@ def logout(request):
         print(response.json())
         return Response({'error': 'Invalid credentials'}, status=401)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def download_resume(request):
+    user = User.objects.get(username="admin")
+    print(user.resume.url)
+    return FileResponse(open(user.resume.url, 'rb'), as_attachment=True)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def send_email(request):
+    serializer = EmailSerializer(data=request.POST)
+    serializer.is_valid()
+    print(request.POST)
+
+    try:
+
+        if serializer.is_valid(raise_exception=True):
+            subject = serializer.validated_data['subject']
+            name = serializer.validated_data['name']
+            message = serializer.validated_data['message']
+
+            # Construct the email message using string formatting
+            email_body = f"{name}\n\n{message}"  # Clearer line break
+
+            # Send the email
+            send_mail(
+                subject,
+                email_body,
+                serializer.validated_data['email'],
+                ["asakilsarhan@gmail.com"],
+                fail_silently=False
+            )
+    except smtplib.SMTPException as e:
+        print(e)
+        return Response(data="Something went wrong", status=500)
+
+    return Response(data="message sent!", status=200)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -157,7 +201,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         user = self.request.user
         instance = self.get_object()
-        print(user)
+        print(request.data)
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()

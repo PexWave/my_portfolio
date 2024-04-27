@@ -8,9 +8,17 @@ import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import Typography from '@mui/material/Typography';
 
+// Core viewer
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
-const ResumeModal = forwardRef(({text, style}, ref) => {
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
+const ResumeModal = forwardRef(({text, style, resume}, ref) => {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+  console.log(resume);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -43,7 +51,7 @@ const ResumeModal = forwardRef(({text, style}, ref) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: {xs:'80vw', sm:'80vw'},
+            width: {xs:'60vw', sm:'60vw'},
             height: 750,  
             border: '2px solid #000',
             boxShadow: 24,

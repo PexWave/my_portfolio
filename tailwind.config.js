@@ -13,7 +13,7 @@ colors: {
     'primary': '#EDDBC7',
     'secondary': '#09022b',
     'tertiary': '#F9F5E7',
-    'quaternary': 'rgb(212, 50, 185) ',
+    'quaternary': 'rgb(212, 50, 185)',
     'lightbeige':'#FAF0E6',
     },
 extend: {},

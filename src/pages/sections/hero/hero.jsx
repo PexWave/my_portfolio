@@ -4,6 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import '@fontsource/bungee';
 import '@fontsource/bungee-shade';
+import { motion } from "framer-motion";
 
 //hooks
 import useAuth from '../../../hooks/useAuth';
@@ -58,15 +59,21 @@ export default function Hero({personalInfo}) {
   return (
     <>
     <div id='Home' className='hero flex flex-row h-full'>
+        {hasInfo && 
+      <div className='flex xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10 h-full'>
 
-        <div className='flex xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10 h-full'>
+      <motion.div
+      initial={{y: "-100%"}} 
+      whileInView={{y:["-100%","0%"]}}   
+      transition={{ y:{ ease:"easeOut", duration: 1 }  }} 
+      viewport={{ amount:0.3 }}
+      exit={{y: "-100%"}}
 
-            <div className='w-min flex flex-col gap-6'>
-
+            className='w-min flex flex-col gap-6'>
               <span className='flex flex-col gap-2 text-lightbeige lg:text-7xl text-5xl'> 
                  <span  className='bungee block whitespace-nowrap'>MY NAME</span>
-                 <span className='bungee block whitespace-nowrap'>is {hasInfo?.first_name}</span> 
-                 <span className='text-gradient lg:text-8xl text-6xl'>{hasInfo?.last_name}</span>
+                 <span className='bungee block whitespace-nowrap'>is {hasInfo.first_name}</span> 
+                 <span className='text-gradient lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
               </span>
 
               <div className='flex flex-col'>
@@ -97,11 +104,11 @@ export default function Hero({personalInfo}) {
                   </div>
               </div>
 
-            </div>
+            </motion.div>
     
         
         </div>
-        
+        }
 
         <div  className='flex flex-col text-white items-end justify-center pr-2 mb-32 w-full h-full'>
         {socMedLink?.map((info,index) => {

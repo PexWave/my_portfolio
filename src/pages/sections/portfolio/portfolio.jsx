@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from "framer-motion";
 
 //icons
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -10,17 +11,30 @@ export default function Porfolio({projects}) {
 
   return (
     <div id='Portfolio' className={projects?.length > 3 ? 'flex justify-center items-center bg-black !p-20' : 'flex justify-center items-center bg-black'}>
-        <div className='grid grid-flow-row justify-center items-center'>
-            <div className='flex flex-col'>
+        <div className='grid grid-flow-row justify-center items-center my-32'>
+
+            <motion.div 
+            initial={{y: "-100%"}} 
+            animate={{y:'0%'}}
+            transition={{ ease: "easeOut", duration: 0.6, bounce: 1 }}
+            whileInView={{y:["-100%","0%"]}} 
+            className='flex flex-col mb-12'>
                 <span className='vogue text-white text-xl'>
                   My Work
                 </span>
                 <span className='vogue text-white text-5xl lg:text-6xl'>
                   Recent Projects
                 </span>
-            </div>
+            </motion.div>
 
-            <div className='grid 2xl:grid-cols-2 grid-cols-1'>
+            <motion.div 
+            
+            initial={{x: "100%", y:"0%"}} 
+            animate={{x:'0%'}}
+            transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
+            whileInView={{x:["100%","0%"]}} 
+
+            className='grid 2xl:grid-cols-2 grid-cols-1'>
               {projects && projects?.map((data, index) => (
         
               <TransitionsModal style={'!p-12 flex flex-col'} key={index} data={data} elements={              
@@ -45,7 +59,7 @@ export default function Porfolio({projects}) {
 
         ))
         }
-            </div>
+            </motion.div >
            
         </div>
     </div>

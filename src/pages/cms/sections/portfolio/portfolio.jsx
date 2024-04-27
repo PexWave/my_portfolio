@@ -22,17 +22,16 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
   export default function Portfolio() {
 
-    const {register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {register, handleSubmit } = useForm();
     const { auth } = useAuth();
-
     const getProjectsCallback = getAllProjects();
 
     const [formData, setformData] = useState({
       id: "",
       tag: "",
       title: "",
-      img: "",
       description:"",
+      img: ""
     });
 
     const [projects, setProjects] = useState();
@@ -42,8 +41,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
       const getProjects = async () =>{
         const response = await getProjectsCallback();
 
-        console.log(response);
-        setProjects(response);
+        console.log(response.results[0]);
+        setProjects(response.results);
 
       };
 

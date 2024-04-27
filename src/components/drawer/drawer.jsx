@@ -18,6 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTheme, ThemeProvider, createTheme  } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { motion } from "framer-motion";
 
 import { scroller } from 'react-scroll';
 
@@ -26,12 +27,11 @@ import './drawer.css'
 
 const drawerWidth = 290;
 
-function ResponsiveDrawer({window, theme, main: Home, navitems}) {
+function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const use_theme = useTheme();
   const matches_sm = useMediaQuery(use_theme.breakpoints.up('sm'));
-
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -49,7 +49,12 @@ function ResponsiveDrawer({window, theme, main: Home, navitems}) {
   };
 
   const drawer = (
-    <div>
+    <motion.div 
+    initial={{y: "-100%"}} 
+    animate={{y:'0%'}}
+    transition={{ ease: "easeOut", duration: 0.6, bounce: 1 }}
+    whileInView={{y:["-100%","0%"]}} 
+    >
       <Toolbar />
       <List className='!p-5'>
         {navitems.map((text, index) => (
@@ -65,8 +70,12 @@ function ResponsiveDrawer({window, theme, main: Home, navitems}) {
 
           </ListItem>
         ))}
+
+
       </List>
-    </div>
+
+
+    </motion.div >
   );
 
   // Remove this const when copying and pasting into your project.
@@ -139,6 +148,10 @@ function ResponsiveDrawer({window, theme, main: Home, navitems}) {
           }}
         >
           {drawer}
+                  {/* LOGOUT BUTTON */}
+        {logout && 
+            <button className='bg-transparent px-4 absolute bottom-5 left-5 text-red-800 text-xl vogue border-none' onClick={logout} >LOGOUT</button>
+        } 
         </Drawer>
         
         

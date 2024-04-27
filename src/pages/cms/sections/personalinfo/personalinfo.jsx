@@ -5,10 +5,10 @@ import useAuth from "../../../../hooks/useAuth";
 
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form'; 
+import { styled } from '@mui/material/styles';
 
 
 //api functions
-import logout from '../../../../api/signout';
 import {savePersonalInfo} from '../../../../api/PUT/savepersonalinfo';
 import getPersonalInfo from '../../../../api/GET/personalinfo';
 
@@ -23,6 +23,17 @@ import InputAdornment from '@mui/material/InputAdornment';
 import ResumeModal from '../../../../components/modal/resumeModal';
 
 export default function PersonalInfo() {
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
 
   const [formData, setformData] = useState({
     id: "",
@@ -34,6 +45,7 @@ export default function PersonalInfo() {
     email:"",
     phone_number:"",
     self_description:"",
+    resume: ""
   });
 
   const {register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -59,16 +71,24 @@ export default function PersonalInfo() {
   //EVENT FUNCTIONS
 
   const handleChange = (evt) => {
+    // Handle both text input and file selection
+    if (evt.target.type === 'file') {
 
-    console.log(evt.target.value);
-    setformData( currData => {
-        return { 
-            ...currData,
-            [evt.target.name]: evt.target.value,
-        };
-    });
+      setformData(currData => ({
+        ...currData,
+        [evt.target.name]: evt.target.files[0] ,
+      }));
+
+    console.log(evt.target.name);
+    } else {
+
+      setformData(currData => ({
+        ...currData,
+        [evt.target.name]: evt.target.value,
+      }));
+
+    }
   };
-
 
   const handleFormSubmit = (evt) => {
     savePersonalInfo(formData, auth);
@@ -78,29 +98,11 @@ export default function PersonalInfo() {
     console.log(errors);
   }
 
-  const handleLogout = async () => {
-    try {
 
-      await logout(auth,navigate); // Call the imported logout function
-
-    } catch (err) {
-      // Handle errors
-    }
-  };
 
   return (
     <div id='Dashboard' className='relative flex flex-col justify-center items-center gap-10 pt-60 3xl:p-0 bg-tertiary h-min'>
 
-            <button className='bg-red-700 p-5 text-white vogue' onClick={handleLogout} >logout</button>
-
-            <div className='absolute flex 3xltop-10 3xl:right-16 right-6 top-16 flex-col gap-2'>
-
-
-                 <div className='flex 3xl:flex-row flex-col gap-2'>
-                 <ResumeModal text={'Resume'} style={'vogue !text-black'} />
-                 </div>
-
-            </div>
 
             <div className='flex 3xl:flex-row flex-col items-center gap-24'>
 
@@ -115,7 +117,26 @@ export default function PersonalInfo() {
                   autoComplete="off"
                   className='flex flex-col md:col-start-2 md:col-span-2 col-start-1 justify-center items-center'
                 >
+                
+                {/* UPLOAD RESUME */}
+                <div className='absolute !w-32 text-center right-6 top-16'>
+                      <div className='flex 3xl:flex-row flex-col gap-2'>
+                      <Button
 
+                          component="label"
+                          role={undefined}
+                          variant="contained"
+                          tabIndex={-1}
+                        >
+                            Upload resume
+                          <VisuallyHiddenInput 
+                          {...register('resume')} 
+                          name="resume"
+                          onChange={handleChange} type="file" />
+
+                      </Button>                 
+                      </div>
+                </div>
 
                 <TextField {...register('first_name')} onChange={handleChange} 
                 id="standard-basic" 

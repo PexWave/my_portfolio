@@ -7,6 +7,7 @@ import About from '../sections/about/about';
 import Portfolio from '../sections/portfolio/portfolio';
 import ResponsiveDrawer from '../../components/drawer/drawer';
 import Loader from '../../components/catloader/catloader';
+import { ToastContainer } from 'react-toastify';
 
 //api
 import getPersonalInfo from '../../api/GET/personalinfo';
@@ -56,13 +57,27 @@ export default function Home({theme}) {
     {isLoading ? <Loader/> :
           <ResponsiveDrawer theme={theme} main={() => 
             <>
+
+            <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition: Bounce
+            />
+
             <Hero personalInfo={personalInfo}/>
             <About personalInfo={personalInfo}/>
             <Portfolio projects={projects} />
-            <BlogPage blogs={projects}/>
             <ContactPage/>
             </>
-      } navitems={['Home', 'About', 'Portfolio', 'Blog', 'Contact']} />
+      } navitems={['Home', 'About', 'Portfolio', 'Contact']} />
     }
 
     </>

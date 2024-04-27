@@ -1,3 +1,8 @@
 span {
     color: white !important;
 }
+
+.MuiFormLabel-root {
+    font-size: 25px !important;
+  }
+  

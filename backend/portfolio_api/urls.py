@@ -26,6 +26,10 @@ urlpatterns = [
     path('login/', views.login),
     path('logout/', views.logout),
     path('refresh/', views.refresh_token),
+
+    path('download-resume/', views.download_resume),
+    path('send-email/', views.send_email),
+    
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
     

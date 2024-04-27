@@ -8,12 +8,13 @@ async function savePersonalInfo(formData, auth) {
         postData.append(key, value);
       }
 
-      console.log(auth.access_token);
+      console.log(formData);
       
     try {
         const response = await baseAxios.put(`users/${formData.id}/`,postData,
         {headers: 
-            { 'Content-Type': 'application/json',
+            { 
+            'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${auth.access_token}`
             },
             withCredentials: true

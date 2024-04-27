@@ -40,7 +40,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'position']
+        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'position', 'resume']
     
     # def create(self, validated_data):
     #     user_socialmedia_data = validated_data.pop('user_socmed')
@@ -72,4 +72,10 @@ class PersonalInfoSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'first_name', 'last_name', 'email', 'address', 'phone_number', 'position']
 
+
+class EmailSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=200)
+    subject = serializers.CharField(max_length=250)
+    email = serializers.EmailField()
+    message = serializers.CharField(max_length=None)
 
