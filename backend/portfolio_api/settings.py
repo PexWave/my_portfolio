@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
-load_dotenv('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,23 +25,43 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get('DEBUG')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+OIDC_RSA_PRIVATE_KEY = os.environ.get('OIDC_RSA_PRIVATE_KEY')
+TOKEN_URL = os.environ.get('TOKEN_URL')
+REVOKE_TOKEN_URL = os.environ.get('REVOKE_TOKEN_URL')
+CLIENT_ID = os.environ.get('CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+AUTHENTICATOR_ID = os.environ.get('AUTHENTICATOR_ID')
+AUTHENTICATOR_SECRET = os.environ.get('AUTHENTICATOR_SECRET')
 
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+
+
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(" ")
 
-CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [    
+    'https://my-portfolio-delta-seven-35.vercel.app/',
     'https://localhost:5173',
 ]
 
+
+CORS_ORIGIN_WHITELIST = (
+    'https://my-portfolio-delta-seven-35.vercel.app/',
+)
+
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+CSRF_TRUSTED_ORIGINS =[    
+    'https://localhost:5173',
+    'https://my-portfolio-delta-seven-35.vercel.app/',
+
+]
+
+
 
 # Application definition
 
@@ -93,7 +111,7 @@ TEMPLATES = [
 
 OAUTH2_PROVIDER = {
     "OIDC_ENABLED": True,
-    "OIDC_RSA_PRIVATE_KEY": os.getenv("OIDC_RSA_PRIVATE_KEY"),
+    "OIDC_RSA_PRIVATE_KEY": os.environ.get("OIDC_RSA_PRIVATE_KEY"),
     "SCOPES": {
         "openid": "OpenID Connect scope",
         'read': 'Read scope',
@@ -205,3 +223,5 @@ EMAIL_HOST_PASSWORD = "pykgvchmguvippjn"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+

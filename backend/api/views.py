@@ -19,8 +19,8 @@ from requests.auth import HTTPBasicAuth
 from django_sendfile import sendfile
 import requests
 import base64
-import os
 import smtplib
+from django.conf import settings
 
 User = get_user_model()
 
@@ -29,11 +29,12 @@ User = get_user_model()
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    print(password)
-    url = os.getenv('TOKEN_URL')
-    client_id = os.getenv('AUTHENTICATOR_ID')
-    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+    url = settings.TOKEN_URL
 
+
+    client_id = settings.AUTHENTICATOR_ID
+    client_secret = settings.AUTHENTICATOR_SECRET
+    print(url)
     data = {
         'grant_type': 'password',
         'username': username,
@@ -43,7 +44,8 @@ def login(request):
     auth = HTTPBasicAuth(client_id, client_secret)
 
     response = requests.post(url, data=data, auth=auth)
-    print(url)
+    print(response)
+
     if response.status_code == 200:
         httpres = Response(
             {
@@ -60,9 +62,9 @@ def login(request):
 @permission_classes([AllowAny])
 def refresh_token(request):
 
-    url = os.getenv('TOKEN_URL')
-    client_id = os.getenv('AUTHENTICATOR_ID')
-    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+    url = settings.TOKEN_URL
+    client_id = settings.AUTHENTICATOR_ID
+    client_secret = settings.AUTHENTICATOR_SECRET
 
     refresh_token = request.COOKIES.get('refresh_token')
     
@@ -76,7 +78,7 @@ def refresh_token(request):
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
-    response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, data=data, verify=False)
 
     if response.status_code == 200:
 
@@ -95,9 +97,9 @@ def refresh_token(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def logout(request):
-    url = os.getenv('REVOKE_TOKEN_URL')
-    client_id = os.getenv('AUTHENTICATOR_ID')
-    client_secret = os.getenv('AUTHENTICATOR_SECRET')
+    url = settings.REVOKE_TOKEN_URL
+    client_id = settings.AUTHENTICATOR_ID
+    client_secret = settings.AUTHENTICATOR_SECRET
 
     access_token = request.data.get('access_token')
     print(access_token)
@@ -109,7 +111,7 @@ def logout(request):
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
-    response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, data=data, verify=False)
     
     if response.status_code == 200:
 
