@@ -5,7 +5,6 @@ const usegetSocmedLink = () => {
 
         const getSocmedLink = async () => {
                 const response = await baseAxios.get('/socialmedias', {
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
                        },
