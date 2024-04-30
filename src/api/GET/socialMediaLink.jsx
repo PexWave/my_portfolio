@@ -7,6 +7,8 @@ const usegetSocmedLink = () => {
                 const response = await baseAxios.get('/socialmedias', {
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })
