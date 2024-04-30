@@ -64,8 +64,11 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
         setformData(currData => ({
           ...currData,
-          [evt.target.name]: evt.target.files[0] ,
+          [evt.target.name]: evt.target.files[0],
         }));
+
+              console.log(evt.target.name);
+
 
       } else {
 
