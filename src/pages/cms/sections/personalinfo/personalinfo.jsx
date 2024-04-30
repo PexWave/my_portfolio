@@ -61,7 +61,7 @@ export default function PersonalInfo() {
       const response = await getPersonalInfoCallback();
 
       setformData(response[0]);
-
+      console.log(response);
     };
 
      getPersonal();
