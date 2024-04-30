@@ -7,6 +7,8 @@ const usegetPersonalInfo = () => {
                 const response = await baseAxios.get('/users/', {
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })
