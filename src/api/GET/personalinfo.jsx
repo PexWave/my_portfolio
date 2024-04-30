@@ -5,7 +5,6 @@ const usegetPersonalInfo = () => {
 
         const getPersonalInfo = async () => {
                 const response = await baseAxios.get('/users/', {
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
                        },
