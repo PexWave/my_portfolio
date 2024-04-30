@@ -7,6 +7,8 @@ const usegetProjects = () => {
                 const response = await baseAxios.get('/projects', {
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })
