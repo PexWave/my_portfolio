@@ -5,7 +5,6 @@ const usegetProjects = () => {
 
         const getAllProjects = async () => {
                 const response = await baseAxios.get('/projects', {
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
                        },
