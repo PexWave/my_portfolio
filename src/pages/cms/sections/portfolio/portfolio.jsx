@@ -75,6 +75,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
         }));
 
       }
+
+      console.log(formData);
     };
 
 
