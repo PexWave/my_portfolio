@@ -17,7 +17,6 @@ async function updateProject(formData, auth) {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${auth.access_token}`
             },
-            withCredentials: true
         })
         .then(response => {
             console.log(response.data);
