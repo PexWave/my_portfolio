@@ -13,7 +13,9 @@ async function sendEmail(formData) {
         const response = await baseAxios.post(`send-email/`,postData,
         {headers: 
             {       
-            'Content-Type': 'multipart/form-data', // Use multipart/form-data for FormData
+            'Content-Type': 'multipart/form-data',
+                        "ngrok-skip-browser-warning": "69420",
+// Use multipart/form-data for FormData
             },
         })
         .then(response => {
