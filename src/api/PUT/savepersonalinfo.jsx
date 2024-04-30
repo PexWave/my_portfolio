@@ -15,7 +15,9 @@ async function savePersonalInfo(formData, auth) {
         {headers: 
             { 
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${auth.access_token}`
+            'Authorization': `Bearer ${auth.access_token}`,
+                        "ngrok-skip-browser-warning": "69420",
+
             },
         })
         .then(response => {
