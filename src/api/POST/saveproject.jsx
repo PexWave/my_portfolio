@@ -17,7 +17,6 @@ async function saveProject(formData, auth) {
 
             'Authorization': `Bearer ${auth.access_token}`
             },
-            withCredentials: true
         })
         .then(response => {
             console.log(response.data);
