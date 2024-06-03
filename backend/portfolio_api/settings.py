@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,39 +27,49 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.environ.get('DEBUG')
-SECRET_KEY = os.environ.get('SECRET_KEY')
-OIDC_RSA_PRIVATE_KEY = os.environ.get('OIDC_RSA_PRIVATE_KEY')
-TOKEN_URL = os.environ.get('TOKEN_URL')
-REVOKE_TOKEN_URL = os.environ.get('REVOKE_TOKEN_URL')
-CLIENT_ID = os.environ.get('CLIENT_ID')
-CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
-AUTHENTICATOR_ID = os.environ.get('AUTHENTICATOR_ID')
-AUTHENTICATOR_SECRET = os.environ.get('AUTHENTICATOR_SECRET')
+DEBUG = config['DEBUG']
+SECRET_KEY = config['SECRET_KEY']
+OIDC_RSA_PRIVATE_KEY = config['OIDC_RSA_PRIVATE_KEY']
+TOKEN_URL = config['TOKEN_URL']
+REVOKE_TOKEN_URL = config['REVOKE_TOKEN_URL']
+CLIENT_ID = config['CLIENT_ID']
+CLIENT_SECRET = config['CLIENT_SECRET']
+AUTHENTICATOR_ID = config['AUTHENTICATOR_ID']
+AUTHENTICATOR_SECRET = config['AUTHENTICATOR_SECRET']
 
 
 
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(" ")
+ALLOWED_HOSTS = config['DJANGO_ALLOWED_HOSTS'].split(" ")
 
+CORS_ORIGIN_ALLOW_ALL = True   
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_ALLOW = True
 CORS_ALLOWED_ORIGINS = [    
-    'https://my-portfolio-delta-seven-35.vercel.app/',
-    'https://localhost:5173',
+'https://my-portfolio-i1xukfzic-pexwaves-projects.vercel.app',
+    'https://3029-58-69-90-10.ngrok-free.app'
+
 ]
 
+CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
+                      'content-type', 'accept', 'origin', 'authorization', 'access-control-allow-origin', 'ngrok-skip-browser-warning')
 
-CORS_ORIGIN_WHITELIST = (
-    'https://my-portfolio-delta-seven-35.vercel.app/',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'https://my-portfolio-delta-seven-35.vercel.app',
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+#     'https://my-portfolio-b6dzgp5o9-pexwaves-projects.vercel.app',
+#     'https://3029-58-69-90-10.ngrok-free.app'
+# )
+
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS =[    
-    'https://localhost:5173',
-    'https://my-portfolio-delta-seven-35.vercel.app/',
+    'https://my-portfolio-i1xukfzic-pexwaves-projects.vercel.app',
+    'https://3029-58-69-90-10.ngrok-free.app'
 
 ]
 
@@ -77,19 +89,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'api',
+        'storages',
+
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    ]
 
 ROOT_URLCONF = 'portfolio_api.urls'
 
@@ -111,7 +125,7 @@ TEMPLATES = [
 
 OAUTH2_PROVIDER = {
     "OIDC_ENABLED": True,
-    "OIDC_RSA_PRIVATE_KEY": os.environ.get("OIDC_RSA_PRIVATE_KEY"),
+    "OIDC_RSA_PRIVATE_KEY": config["OIDC_RSA_PRIVATE_KEY"],
     "SCOPES": {
         "openid": "OpenID Connect scope",
         'read': 'Read scope',
@@ -144,7 +158,7 @@ AUTH_USER_MODEL='api.User'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        'ENGINE': 'django.db.backends.sqlite3',
         "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
         "USER": os.environ.get("SQL_USER", "user"),
         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
@@ -196,15 +210,48 @@ USE_I18N = True
 USE_TZ = True
 
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "mediafiles"
 
+
+JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
+
+AWS_ACCESS_KEY_ID = os.getenviron.get('AWS_ACCESS_KEY_ID')
+
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-southeast-1.amazonaws.com'
+
+AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400'
+}
+
+AWS_LOCATION = 'media'
+
+AWS_QUERYSTRING_AUTH = False
+
+AWS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+}
+
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATIC_FILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'   
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
+STATIC_ROOT = '/static/'
+
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -216,12 +263,12 @@ SENDFILE_BACKEND = "django_sendfile.backends.simple"
 SENDFILE_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "asakilsarhan@gmail.com"
-EMAIL_HOST_PASSWORD = "pykgvchmguvippjn"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
 
 

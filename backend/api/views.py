@@ -202,12 +202,15 @@ class UserViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
 
         user = self.request.user
+        print(user)
         instance = self.get_object()
         print(request.data)
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=201)
+        else:
+            print(serializer.errors)
         return Response(data="wrong parameters", status=400)
 
 
@@ -239,7 +242,7 @@ class SocMedViewSet(viewsets.ModelViewSet):
 
         user = self.request.user
         instance = self.get_object()
-
+        print(instance)
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -272,13 +275,25 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
         return self.get_paginated_response(serializer.data)
 
+    def update(self, request, *args, **kwargs):
 
+        user = self.request.user
+        instance = self.get_object()
+        print(instance)
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=201)
+        return Response(data="wrong parameters", status=400)
+
+        
     def create(self, request):
 
         serializer = self.get_serializer(data=request.data, context={'request': request})
 
         if serializer.is_valid():
             validated_data = serializer.validated_data
+            print(validated_data)
             auth_user = request.user  # Access authenticated user
             instance = Project.objects.create(user=auth_user, **validated_data)
 
