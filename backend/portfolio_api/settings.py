@@ -213,20 +213,15 @@ USE_TZ = True
 
 
 JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
-JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
 
-AWS_ACCESS_KEY_ID = os.getenviron.get('AWS_ACCESS_KEY_ID')
 AWS_ACCESS_KEY_ID = os.getenviron.get('AWS_ACCESS_KEY_ID')
 
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-southeast-1.amazonaws.com'
 
-AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
 AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
 
 AWS_S3_OBJECT_PARAMETERS = {
@@ -263,7 +258,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SENDFILE_BACKEND = "django_sendfile.backends.simple"
 SENDFILE_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
 EMAIL_HOST = os.environ.get('EMAIL_HOST')

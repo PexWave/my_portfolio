@@ -25,4 +25,9 @@ dist-ssr
 backend/*.key
 backend/*.env
 .env*
+<<<<<<< HEAD
 env*
+=======
+env*
+secrets.txt
+>>>>>>> a2593207 (update)
