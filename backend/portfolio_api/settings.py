@@ -252,11 +252,11 @@ STATIC_FILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
 STATIC_ROOT = '/static/'
 
-STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
