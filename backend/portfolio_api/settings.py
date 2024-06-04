@@ -213,15 +213,20 @@ USE_TZ = True
 
 
 JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
+JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
 
+AWS_ACCESS_KEY_ID = os.getenviron.get('AWS_ACCESS_KEY_ID')
 AWS_ACCESS_KEY_ID = os.getenviron.get('AWS_ACCESS_KEY_ID')
 
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-southeast-1.amazonaws.com'
 
+AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
 AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
 
 AWS_S3_OBJECT_PARAMETERS = {
@@ -252,9 +257,6 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 STATIC_ROOT = '/static/'
 
 STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
