@@ -24,16 +24,11 @@ dist-ssr
 *.sw?
 backend/*.key
 backend/*.env
-<<<<<<< HEAD
 
 env
 .env*
-=======
-.env*
-<<<<<<< HEAD
 env*
-=======
-env*
+
 secrets.txt
->>>>>>> a2593207 (update)
->>>>>>> f6604062 (update)
+
+
