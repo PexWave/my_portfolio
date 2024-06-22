@@ -14,6 +14,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTheme, ThemeProvider, createTheme  } from '@mui/material/styles';
@@ -31,7 +32,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const use_theme = useTheme();
-  const matches_sm = useMediaQuery(use_theme.breakpoints.up('sm'));
+  const matches_sm = useMediaQuery(use_theme.breakpoints.up('lg'));
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -43,9 +44,9 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
   };
 
   const handleDrawerToggle = () => {
-    if (!isClosing) {
+  
       setMobileOpen(!mobileOpen);
-    }
+    
   };
 
   const drawer = (
@@ -61,11 +62,16 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
           <ListItem key={text} disablePadding>
 
           <ListItemButton onClick={() => {
+                
                 const section = document.querySelector(`#${text}`);
                 section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+                setMobileOpen(!mobileOpen);
+
+                console.log('wewe');
+
             }}>
               
-              <ListItemText primary={text.toUpperCase()}/>
+              <ListItemText className='text-center' primary={text.toUpperCase()}/>
             </ListItemButton>
 
           </ListItem>
@@ -83,90 +89,90 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
   return (
     <ThemeProvider theme={theme}>
+      <Box
+        component="main"
+        className='my-28 xl:my-0 bg-primary mx-10 lg:mx-80'
+      >
 
-    <Box sx={{ display: 'flex',  }}>
-      <CssBaseline />
       <AppBar
+      
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          backgroundColor: '#352F44'
-        }}
+          width: '100vw',
+          height: '100px',
+          backgroundColor: '#fff',  
+          
+         }}
+         className='px-10 lg:!px-80'
       >
-        {!matches_sm && (
-        <Toolbar>
+        <Toolbar className='!w-full flex justify-between'>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 2, position:'absolute', right:'0', display: { sm: 'none' } }}
+          sx={{ position:'absolute', right:'0' }}
+          className='lg:!hidden'
         >
-          <MenuIcon />
+          <MenuIcon className='text-black' />
         </IconButton>
 
-        <Typography variant="h6" noWrap component="div">
-          SMA
+        <Typography variant="h2" noWrap className='!text-4xl' component="div">
+          SMA 
         </Typography>
+
+
+        <List className='!p-5 lg:flex lg:flex-row hidden'>
+        {navitems.map((text, index) => (
+          <ListItem key={text} disablePadding>
+
+          <ListItemButton onClick={() => {
+                const section = document.querySelector(`#${text}`);
+                section.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+                
+                if(mobileOpen){
+                  setMobileOpen(!mobileOpen);
+                }
+
+            }}>
+              
+              <ListItemText className='text-center' primary={text.toUpperCase()}/>
+            </ListItemButton>
+
+          </ListItem>
+        ))}
+
+
+      </List>
       </Toolbar>
-        )}
+        
 
         
       </AppBar>
       
-      
-      <Box
-        component="nav"
-        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, }}
-        aria-label="mailbox folders"
-      >
+
+
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
           sx={{
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-
+            '& .MuiDrawer-paper': { boxSizing: 'border-box' },
           }}
         >
+          <ClearSharpIcon sx={{fontSize: 45}} onClick={() => setMobileOpen(false)} className="absolute transition-transform ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 right-11 top-8 z-10"/>
           {drawer}
         </Drawer>
-
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', lg: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            
-          }}
-        >
-          {drawer}
-                  {/* LOGOUT BUTTON */}
-        {logout && 
-            <button className='bg-transparent px-4 absolute bottom-5 left-5 text-red-800 text-xl vogue border-none' onClick={logout} >LOGOUT</button>
-        } 
-        </Drawer>
         
-        
-      </Box>
       
-      <Box
-        component="main"
-        sx={{ overflowY:'scroll', flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
+
 
        <Home/>
 
-      </Box>
-    </Box>
-    
+       </Box>
+
     </ThemeProvider>
 
   );

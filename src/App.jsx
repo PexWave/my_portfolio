@@ -44,14 +44,14 @@ function App() {
       MuiPaper: {
         styleOverrides: {
           root: {
-            backgroundColor: '#030011',
+            backgroundColor: '#5C8D89',
           },
         },
       },
       MuiTypography: {
         styleOverrides: {
           root: {
-            color: 'white',
+            color: 'black',
             fontFamily: 'IBM Plex Sans',
             fontSize: '1.4rem',
             ':hover': {color: 'rgb(212, 50, 185)'}

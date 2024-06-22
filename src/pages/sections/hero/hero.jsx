@@ -58,71 +58,67 @@ export default function Hero({personalInfo}) {
 
   return (
     <>
-    <div id='Home' className='hero flex flex-row h-full'>
+    <div id="Home" className='flex justify-center h-min py-20 lg:py-10 mt-12 lg:h-[1200px]'>
         {hasInfo && 
-      <div className='flex xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10 h-full'>
+      <div 
+      
+      className='flex flex-col xl:flex-row gap-24 xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10'>
 
       <motion.div
-      initial={{y: "-100%"}} 
-      whileInView={{y:["-100%","0%"]}}   
+      initial={{x: -100}} 
+      whileInView={{x:[-100,0]}}   
       transition={{ y:{ ease:"easeOut", duration: 1 }  }} 
-      viewport={{ amount:0.3 }}
-      exit={{y: "-100%"}}
+      viewport={{ amount:0.1 }}
+      
+      exit={{y: "-100%"}} className='frame'>
+          <img src="/assets/images/mypic.jpg" alt="" className='rounded-lg border-4 border-txt' />
+      </motion.div>
 
-            className='w-min flex flex-col gap-6'>
-              <span className='flex flex-col gap-2 text-lightbeige lg:text-7xl text-5xl'> 
-                 <span  className='bungee block whitespace-nowrap'>MY NAME</span>
-                 <span className='bungee block whitespace-nowrap'>is {hasInfo.first_name}</span> 
-                 <span className='text-gradient lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
+
+
+      <motion.div
+      initial={{x: 100}} 
+      whileInView={{x:[100,0]}}   
+      transition={{ y:{ ease:"easeOut", duration: 2 }  }} 
+      viewport={{ amount:0.1 }}
+      exit={{y: "-100%"}}
+      
+            className='w-min flex flex-col gap-6 items-center'>
+              <span className='flex flex-col gap-2 lg:text-7xl text-5xl'> 
+                 <span  className='bungee block whitespace-nowrap !text-txt'>Hi I am 👋🏼</span>
+                 <div className='bungee flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-tertiary'>
+                    <span className='bungee !text-tertiary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
+                  <span className='bungee !text-tertiary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
+                 </div> 
+                 
               </span>
 
               <div className='flex flex-col'>
-                <span className=' vogue shadow text-lightbeige md:text-2xl text-2xl'> 
-                    Python Developer based
+                <span className=' vogue !text-txt md:text-2xl text-2xl'> 
+                24-year-old fresh graduate passionate about building and contributing to software applications that can lead to small or significant changes in clients' or customers' needs.
                 </span>
 
-                <InthephilippinesBtn/>
-
               </div>
 
-              <Button text='Work with me' clickfunc={() => {
-                const section = document.querySelector(`#Contact`);
-                section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
-
-            }}
-            styles='vogue text-white gradient w-min p-3 px-6 rounded-md whitespace-nowrap transition ease-in-out delay-150 hover:scale-110 duration-300' />
-
-
-              <div className='flex flex-row gap-2'>
-                  <div className='flex lg:flex-row flex-col lg:gap-24 gap-2 text-white text-xl vogue'>
-                      <span className='flex flex-row gap-2'>
-                        <Phonenumber number={hasInfo?.phone_number}/>
-                      </span>
-                      <span className='flex flex-row gap-2'>
-                        <Emailadd email={hasInfo?.email}/>
-                      </span>
-                  </div>
-              </div>
-
-            </motion.div>
-    
-        
-        </div>
-        }
-
-        <div  className='flex flex-col text-white items-end justify-center pr-2 mb-32 w-full h-full'>
+     <div  className='flex flex-row text-white items-end pr-2 w-full h-min'>
         {socMedLink?.map((info,index) => {
           return(
           <div key={index}>
-            <div className='p-2 rounded-xl hover:bg-white hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'><a target='_blank' href={'https://' + info.social_media_link}>{info.platform === 'Facebook' ? <FacebookRoundedIcon/> : <InstagramIcon/> }</a></div>
+            <div className='p-2 rounded-xl text-black hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'><a target='_blank' href={'https://' + info.social_media_link}>{info.platform === 'Facebook' ? <FacebookRoundedIcon sx={{ fontSize:'2rem'}}/> : <InstagramIcon  sx={{ fontSize:'2rem'}}/> }</a></div>
           </div>
           )
       })}
         </div>
+
+            </motion.div>
+    
+        </div>
+        }
+
+        
 
 
     </div>
     </>
   )
 }
-<div className='p-2 rounded-xl hover:bg-white hover:text-black'></div>
