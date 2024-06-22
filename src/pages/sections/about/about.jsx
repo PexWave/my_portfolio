@@ -44,59 +44,50 @@ export default function About({personalInfo}) {
 
   return (
     <div
-     id='About'  className='flex justify-center items-center h-screen gradient2'>
+     id='About'  className='py-32'>
 
      <motion.div 
      
-      initial={{y: "-100%", opacity: 0}} 
-      animate={{y:'0%'}}
-      whileInView={{y:["-100%","0%"], opacity:[0,1]}}   
+      initial={{y: 100, opacity: 0}} 
+      animate={{y:0}}
+      whileInView={{y:[100,0], opacity:[0,1]}}   
       transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
-      exit={{y: "-100%"}}
+      exit={{y: 100}}
+      viewport={{ amount:0.1 }}
+
+      className='flex flex-col md:flex-row gap-10'
       >
 
-        {personalInfo?.map((info,key) => {
-          return (
-        <div key={key} className='grid grid-flow-row m-28 xl:space-x-40 xl:grid-cols-3'>
-          <div className='flex flex-col justify-center items-center gap-2 xl:col-start-1'>
-              <span className='text-white whitespace-nowrap text-4xl'>
-                {info.first_name} {info.middle_name} {info.last_name}
+          <div className='flex flex-col md:w-1/2 gap-8 text-txt text-justify font-normal'>
+              <span className='text-6xl mb-10'>
+                  About Me
               </span>
-              <span className='text-white whitespace-nowrap text-3xl'>
-              Python Developer  
-              </span>
-              <InthephilippinesBtn/>
 
-              <a text={'Download CV'} href={info.resume} className={'text-white vogue gradient w-min my-3 whitespace-nowrap p-3 rounded-lg'} >Download Resume</a>
+              <div className='flex flex-col gap-8 text-2xl'>
+                  <span>
+                  I'm a fresh graduate. Currently practicing programming.
+                  </span>
+
+                  <span>
+                  Productive coding at night till midnight. I love coffee, cats, and rainy season. I like learning new technologies; mostly, right after a certain project is finished; grasping other tech stack concepts, as well, intrigues me even more.
+                  </span>
+
+                  <span>
+                  I enjoy solving logical puzzles, and games like sudoku, chess, and rubiks cube. I find it interesting analyzing logics because I think a lot. Doing it just makes me apply effective solutions in real-world problem
+                  </span>
+              </div>
+
+              <button className='bg-tertiary w-full lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl'>
+                  View Resume
+              </button>
+          </div>
+          
+          <div className='flex flex-col'>
+              <span className='text-6xl mb-10'>
+                Technologies I use  
+              </span>
           </div>
 
-
-            <div className='text-white xl:col-span-2 space-y-4'>
-                <span>
-                {info.self_description}
-                </span>
-
-                <div className='grid md:grid-cols-2 grid-cols-1 grid-flow-row'>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Phonenumber number={info.phone_number}/>
-                    </span>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Emailadd email={info.email}/>
-                    </span>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Myname name={info.first_name + " " + info.last_name}/>
-                    </span>
-                    <span className='flex flex-row gap-2 whitespace-nowrap my-2 text-xl'>
-                        <Mylocation address={info.address}/>
-                    </span>
-                </div>
-
-              
-                
-            </div>
-        </div>
-          )
-        })}
         </motion.div>
     </div>
   )

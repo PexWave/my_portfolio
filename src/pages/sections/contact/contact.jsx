@@ -82,26 +82,11 @@ export default function ContactPage() {
   return (
     <>
     
-       <div id='Contact' className='h-screen bg-black grid 2xl:grid-cols-2 px-16 gap-0'>
+       <div id='Contact' className='flex flex-col xl:flex-row gap-5 py-32 px-10 h-min'>
 
-                <div className='md:flex flex-col h-min hidden'>
-                    <span className='text-6xl'>Contact</span>
-                    <span className='text-7xl mt-10'>Reach out to me</span>
-
-                </div>
-
-                <Box        
-                  component="form"
-                  sx={{
-                    height: 'min-content',
-                    padding: '50px !important'
-                  }}
-                  noValidate
-                  onSubmit={handleSubmit(handleFormSubmit, handleError)}
-                  autoComplete="off"
-                className='flex flex-col gap-10 w-full gradient p-10'>
-
-                    <div className='flex flex-col space-y-1 text-2xl'>
+                    <div className='flex flex-col xl:w-1/2 p-5'>
+                        <span className="font-bold text-4xl text-primary-dark mb-[1.5rem]">Contact</span>
+                        <div className='flex flex-col space-y-1 text-2xl mb-[1.5rem]'>
                         <span>
                             Got the ideas? I have the skills. Let's make it a reality!
                         </span>
@@ -110,17 +95,51 @@ export default function ContactPage() {
                             Tell me more about yourself and what you got in mind.
                         </span>
                     </div>
+
+                    
+                        <div className='flex flex-row flex-wrap gap-3 text-sm'>
+                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
+                                asakilsarhan@gmail.com
+                            </div>
+                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
+                                asakilsarhan@gmail.com
+                            </div>
+                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
+                                asakilsarhan@gmail.com
+                            </div>
+                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
+                                asakilsarhan@gmail.com
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <button className='underline place-self-start text-sm'>
+                            View my resume
+                        </button>
+                    </div>
+
+
+                    <Box        
+                  component="form"
+                  sx={{
+                    height: 'min-content',
+                  }}
+                  noValidate
+                  onSubmit={handleSubmit(handleFormSubmit, handleError)}
+                  autoComplete="off"
+                className='flex flex-col gap-10 w-full m-auto'>
                   
+                  <span className="mt-3 text-semi-dark font-bold md:text-3xl text-2xl">Reach out to me</span>
+
                     <div className='grid 2xl:grid-cols-2 grid-rows gap-2'>
 
                         <TextField
                         {...register('name', validationSchema.name)}
                         onChange={handleChange} 
                         name='name'
-                        InputLabelProps={{
-                            style: { color: '#fff' },
-                            }}
-                        inputProps={{ style: { fontSize: 25, color: 'white' } }} // Set font size for input text
+          
+                        inputProps={{ style: { fontSize: 10, color: 'black' } }} // Set font size for input text
                         className='flex-grow'
                         id="outlined-basic" label="Full Name" variant="outlined"
                         />
@@ -130,11 +149,9 @@ export default function ContactPage() {
                         {...register('email', validationSchema.email)}
                         onChange={handleChange} 
                         name='email'
-                        InputLabelProps={{
-                            style: { color: '#fff' },
-                            }}
-                        inputProps={{ style: { fontSize: 25, color: 'white' } }} // Set font size for input text
-                        className='flex-grow'
+
+                            inputProps={{ style: { fontSize: 10, color: 'black' } }} // Set font size for input text
+                            className='flex-grow'
                         id="outlined-basic" label="Email" variant="outlined" />
                         
                         {errors.name && (
@@ -151,11 +168,9 @@ export default function ContactPage() {
                     {...register('subject', validationSchema.subject)}
                     onChange={handleChange} 
                     name='subject'
-                      InputLabelProps={{
-                        style: { color: '#fff' },
-                      }}
-                    inputProps={{ style: { fontSize: 25, color: 'white' } }} // Set font size for input text
-                    id="outlined-basic" sx={{color:'white'}} label="Subject" variant="outlined" />
+
+                      inputProps={{ style: { fontSize: 10, color: 'black' } }} // Set font size for input text
+                      id="outlined-basic" sx={{color:'white'}} label="Subject" variant="outlined" />
 
                     {errors.name && (
                         <p role="alert" className='text-red-500'>{errors.name.type === 'required' ? 'Subject is required' : 'Invalid name'}</p>
@@ -165,10 +180,14 @@ export default function ContactPage() {
                     {...register('message', validationSchema.message)}
                     onChange={handleChange} 
                     name='message'
-                    InputLabelProps={{
-                    style: { color: '#fff' },
-                    }}
-                    inputProps={{ style: { fontSize: 25, color: 'white' } }} // Set font size for input text
+
+                    inputProps={{ 
+                      style: { 
+                      fontSize: 10, 
+                      color: 'black', 
+                    },
+                
+                  }} // Set font size for input text
                     id="outlined-multiline-static"
                     label="Your message"
                     multiline
@@ -183,11 +202,14 @@ export default function ContactPage() {
                     <Button 
                     color='buttonColor'
                     type='submit'
-                    className='vogue !text-xl !max-w'
-                    sx={{':hover': {
-                      backgroundColor: '#09022b',
-                      color: 'white'
-                    },}} 
+                    className='vogue !text-xl !max-w hover:!bg-tertiary'
+                    sx={{
+                      backgroundColor: '#1cd45f',
+                      color: 'white',
+
+
+                    
+                  }} 
                     variant="outlined">
                         <span className='text-white text-xl h-12 flex items-center'>
                             Send message
@@ -195,6 +217,9 @@ export default function ContactPage() {
                       </Button>
 
                 </Box>
+
+
+
 
             <ToastContainer
             position="top-right"

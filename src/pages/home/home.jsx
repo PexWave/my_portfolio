@@ -71,13 +71,12 @@ export default function Home({theme}) {
             theme="light"
             transition: Bounce
             />
-
             <Hero personalInfo={personalInfo}/>
             <About personalInfo={personalInfo}/>
             <Portfolio projects={projects} />
             <ContactPage/>
             </>
-      } navitems={['Home', 'About', 'Portfolio', 'Contact']} />
+      } navitems={['Home','About', 'Projects', 'Contact']} />
     }
 
     </>
