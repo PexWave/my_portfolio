@@ -95,7 +95,7 @@ export default function Hero({personalInfo}) {
 
               <div className='flex flex-col'>
                 <span className=' vogue !text-txt md:text-2xl text-2xl'> 
-                24-year-old fresh graduate passionate about building and contributing to software applications that can lead to small or significant changes in clients' or customers' needs.
+                  {hasInfo.self_description}
                 </span>
 
               </div>

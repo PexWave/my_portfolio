@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(SocialMedia)
 admin.site.register(Project)
+admin.site.register(TechnologyUsed)

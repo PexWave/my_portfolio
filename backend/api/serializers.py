@@ -1,9 +1,41 @@
 from django.contrib.auth.models import Group
 from rest_framework import serializers
-from .models import SocialMedia, Project, Blog
+from .models import SocialMedia, Project, Blog, TechnologyUsed
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+    
+class TechnologyUsedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TechnologyUsed
+        fields = [ 'name', 'technology_image_url']
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    user_technology = TechnologyUsedSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'about_me', 'user_technology', 'position', 'resume']
+    
+    # def create(self, validated_data):
+    #     user_socialmedia_data = validated_data.pop('user_socmed')
+    #     user = User.objects.create(**validated_data)
+    #     for social_media in user_socialmedia_data:
+    #         SocialMedia.objects.create(user=user, **user_socialmedia_data)
+    #     return user
+
+    # def update(self, instance, validated_data):
+    #     item_data = validated_data.pop('user_socmed')
+    #     user = self.context['request'].user
+    #     social_media_data_list = [
+    #         {key: value for key, value in item.items()} for item in item_data
+    #     ]
+    #     print(item_data)
+
+    #     for social_media_data in social_media_data_list:
+    #         SocialMedia.objects.update_or_create(user=user,defaults=social_media_data)
+            
+    #     return instance
 
 class SocialMediaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -35,32 +67,6 @@ class BlogSerializer(serializers.HyperlinkedModelSerializer):
         
         return instance
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'position', 'resume']
-    
-    # def create(self, validated_data):
-    #     user_socialmedia_data = validated_data.pop('user_socmed')
-    #     user = User.objects.create(**validated_data)
-    #     for social_media in user_socialmedia_data:
-    #         SocialMedia.objects.create(user=user, **user_socialmedia_data)
-    #     return user
-
-    # def update(self, instance, validated_data):
-    #     item_data = validated_data.pop('user_socmed')
-    #     user = self.context['request'].user
-    #     social_media_data_list = [
-    #         {key: value for key, value in item.items()} for item in item_data
-    #     ]
-    #     print(item_data)
-
-    #     for social_media_data in social_media_data_list:
-    #         SocialMedia.objects.update_or_create(user=user,defaults=social_media_data)
-            
-    #     return instance
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

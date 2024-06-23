@@ -16,6 +16,7 @@ import Mylocation from '../../../components/extras/location'
 
 export default function About({personalInfo}) {
   const [fileData, setFileData] = useState(null); // State to store downloaded data
+  const [hasInfo, setHasInfo] = useState(); // Flag to indicate data availability
 
   const handleDownloadClick = async () => {
     try {
@@ -41,6 +42,12 @@ export default function About({personalInfo}) {
     }
   }, [fileData]);
 
+  useEffect(() => {
+    if (personalInfo) { // Check if personalInfo is available
+
+        setHasInfo(personalInfo[0]); 
+    }
+  }, [personalInfo]); 
 
   return (
     <div
@@ -58,26 +65,20 @@ export default function About({personalInfo}) {
       className='flex flex-col md:flex-row gap-10'
       >
 
-          <div className='flex flex-col md:w-1/2 gap-8 text-txt text-justify font-normal'>
+          <div className='flex flex-col w-full text-txt text-justify font-normal'>
               <span className='text-6xl mb-10'>
                   About Me
               </span>
 
+              {hasInfo && 
               <div className='flex flex-col gap-8 text-2xl'>
                   <span>
-                  I'm a fresh graduate. Currently practicing programming.
-                  </span>
-
-                  <span>
-                  Productive coding at night till midnight. I love coffee, cats, and rainy season. I like learning new technologies; mostly, right after a certain project is finished; grasping other tech stack concepts, as well, intrigues me even more.
-                  </span>
-
-                  <span>
-                  I enjoy solving logical puzzles, and games like sudoku, chess, and rubiks cube. I find it interesting analyzing logics because I think a lot. Doing it just makes me apply effective solutions in real-world problem
+                      {hasInfo.about_me}
                   </span>
               </div>
+              }
 
-              <button className='bg-tertiary w-full lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl'>
+              <button className='bg-tertiary w-full lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
                   View Resume
               </button>
           </div>
@@ -86,6 +87,17 @@ export default function About({personalInfo}) {
               <span className='text-6xl mb-10'>
                 Technologies I use  
               </span>
+
+              {hasInfo && hasInfo.user_technology && (
+                  <div className='flex flex-row flex-wrap gap-4'>
+                    {hasInfo.user_technology && hasInfo.user_technology.map((technology, index) => (
+                      
+                        <img key={index} src={technology.technology_image_url} className='h-16 w-min' alt="" />
+                      
+                    ))}
+                  </div>
+                )}
+                
           </div>
 
         </motion.div>

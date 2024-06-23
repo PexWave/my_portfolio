@@ -7,6 +7,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
     self_description = models.TextField(null=True, blank=True)
+    about_me = models.TextField(null=True, blank=True)
     resume = models.FileField(upload_to='resume/', null=True, blank=True)
 
     def __str__(self):
@@ -39,3 +40,11 @@ class Blog(models.Model):
     description = models.TextField(null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     
+class TechnologyUsed(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_technology")
+    name = models.CharField(max_length=250, blank=True, null=True)
+    technology_image_url = models.URLField(max_length=500, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.name

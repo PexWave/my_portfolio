@@ -84,7 +84,7 @@ export default function ContactPage() {
     
        <div id='Contact' className='flex flex-col xl:flex-row gap-5 py-32 px-10 h-min'>
 
-                    <div className='flex flex-col xl:w-1/2 p-5'>
+                    <div className='flex flex-col w-full p-5'>
                         <span className="font-bold text-4xl text-primary-dark mb-[1.5rem]">Contact</span>
                         <div className='flex flex-col space-y-1 text-2xl mb-[1.5rem]'>
                         <span>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                   noValidate
                   onSubmit={handleSubmit(handleFormSubmit, handleError)}
                   autoComplete="off"
-                className='flex flex-col gap-10 w-full m-auto'>
+                className='flex flex-col gap-10 w-full'>
                   
                   <span className="mt-3 text-semi-dark font-bold md:text-3xl text-2xl">Reach out to me</span>
 
