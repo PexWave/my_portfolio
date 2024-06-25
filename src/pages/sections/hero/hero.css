@@ -32,7 +32,7 @@ span span{
   .frame::before,
   .frame::after {
     position: absolute;
-    background: #eee;
+    background: #F9F9FA;
     z-index: -1;
     transition: 1s;
     content: "";
@@ -41,7 +41,7 @@ span span{
   .frame::before {
     height: 529px;
     width: 200px;
-    background: white;
+    background: #F9F9FA;
   }
   
   .frame::after {

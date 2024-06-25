@@ -22,6 +22,7 @@ export default function Porfolio({personalInfo}) {
             animate={{x:'0%'}}
             transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
             whileInView={{x:["100%","0%"]}} 
+            viewport={{ amount:0.1, once:true }}
 
             className='flex flex-col gap-10'>
 

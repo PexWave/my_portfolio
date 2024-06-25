@@ -33,7 +33,7 @@ import Phonenumber from '../../../components/extras/phonenumber';
 import Emailadd from '../../../components/extras/emailadd';
 
 
-export default function Hero({personalInfo}) {
+export default function Hero({personalInfo, isFirstLoad}) {
   const [socMedLink, setsocMedLink] = useState();
   const [hasInfo, setHasInfo] = useState(); // Flag to indicate data availability
 
@@ -70,7 +70,7 @@ export default function Hero({personalInfo}) {
       initial={{x: -100}} 
       whileInView={{x:[-100,0]}}   
       transition={{ y:{ ease:"easeOut", duration: 1 }  }} 
-      viewport={{ amount:0.1 }}
+      viewport={{ amount:0.1, once:true }}
       
       exit={{y: "-100%"}} className='frame'>
           <img src="/assets/images/mypic.jpg" alt="" className='rounded-lg border-4 border-txt' />
@@ -82,7 +82,7 @@ export default function Hero({personalInfo}) {
       initial={{x: 100}} 
       whileInView={{x:[100,0]}}   
       transition={{ y:{ ease:"easeOut", duration: 2 }  }} 
-      viewport={{ amount:0.1 }}
+      viewport={{ amount:0.1, once:true }}
       exit={{y: "-100%"}}
       
             className='w-min flex flex-col gap-6 items-center'>

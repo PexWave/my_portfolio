@@ -94,7 +94,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
     <ThemeProvider theme={theme}>
       <Box
         component="main"
-        className='relative my-28 mx-10 bg-primary lg:mx-28 3xl:mx-80 h-full'
+        className='relative my-28 mx-8 bg-primary lg:mx-28 3xl:mx-80 h-full'
       >
 
       <AppBar
@@ -172,7 +172,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
        </Box>
 
-       <Footer/>
+       {/* <Footer/> */}
 
     </ThemeProvider>
 

@@ -60,13 +60,13 @@ export default function About({personalInfo}) {
       whileInView={{y:[100,0], opacity:[0,1]}}   
       transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
       exit={{y: 100}}
-      viewport={{ amount:0.1 }}
+      viewport={{ amount:0.1, once:true }}
 
       className='flex flex-col 2xl:flex-row gap-10'
       >
 
           <div className='flex flex-col w-full text-txt text-justify font-normal'>
-              <span className='text-6xl text-big-text mb-10'>
+              <span className='text-4xl md:text-6xl text-big-text mb-10'>
                   About Me
               </span>
 
@@ -87,7 +87,7 @@ export default function About({personalInfo}) {
           </div>
           
           <div className='flex flex-col'>
-              <span className='text-6xl !text-big-text mb-10'>
+              <span className='text-4xl md:text-6xl !text-big-text mb-10'>
                 Technologies I use  
               </span>
 
