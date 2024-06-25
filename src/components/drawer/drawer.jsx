@@ -186,7 +186,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
        </Box>
 
-       {/* <Footer/> */}
+       <Footer/>
 
     </ThemeProvider>
 
