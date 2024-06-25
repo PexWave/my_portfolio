@@ -10,11 +10,12 @@ export const content = [
 export const theme = {
 colors: {
     ...colors,
-    'primary': '#EDDBC7',
-    'secondary': '#09022b',
-    'tertiary': '#F9F5E7',
-    'quaternary': 'rgb(212, 50, 185)',
-    'lightbeige':'#FAF0E6',
+    'primary': '#F9F9FA',
+    'secondary': '#1BB467',
+    'tertiary': '#EBF8F2',
+    'dull-gray': '#919EAB',
+    'primary-dark': '#212B36',
+
     },
 extend: {},
 };

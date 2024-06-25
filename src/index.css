@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#root{
+background-color: #F9F9FA;
+}
+
 @font-face {
     font-family: 'vogue';
     src: local('fonts'), url(../fonts/vogue/TheBillionButterflyPersonal-lgopX.otf) format('opentype');
@@ -14,3 +18,27 @@
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }
+
+
+  /*here you can get code for the responsive scroll bar*/
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+   background: white;
+}
+::-webkit-scrollbar-thumb{
+  
+background: linear-gradient(to top, #F9F9FA,#1BB467);
+  animation: animate 5s linear infinite;
+}
+@keyframes animate{
+  0%,100%{
+      filter: hue-rotate(0deg);
+  }
+  50%{
+      filter: hue-rotate(360deg);
+  }
+}
+
+ 

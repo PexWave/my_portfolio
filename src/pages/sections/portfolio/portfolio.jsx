@@ -3,29 +3,18 @@ import { motion } from "framer-motion";
 
 //icons
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 //components
 import TransitionsModal from '../../../components/modal/customModal';
 
-export default function Porfolio({projects}) {
+//css
+import './portfolio.css';
+export default function Porfolio({personalInfo}) {
 
   return (
-    <div id='Portfolio' className={projects?.length > 3 ? 'flex justify-center items-center bg-black !p-20' : 'flex justify-center items-center bg-black'}>
-        <div className='grid grid-flow-row justify-center items-center my-32'>
-
-            <motion.div 
-            initial={{y: "-100%"}} 
-            animate={{y:'0%'}}
-            transition={{ ease: "easeOut", duration: 0.6, bounce: 1 }}
-            whileInView={{y:["-100%","0%"]}} 
-            className='flex flex-col mb-12'>
-                <span className='vogue text-white text-xl'>
-                  My Work
-                </span>
-                <span className='vogue text-white text-5xl lg:text-6xl'>
-                  Recent Projects
-                </span>
-            </motion.div>
+    <div id='Projects' className="py-32">
 
             <motion.div 
             
@@ -34,34 +23,53 @@ export default function Porfolio({projects}) {
             transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
             whileInView={{x:["100%","0%"]}} 
 
-            className='grid 2xl:grid-cols-2 grid-cols-1'>
-              {projects && projects?.map((data, index) => (
-        
-              <TransitionsModal style={'!p-12 flex flex-col'} key={index} data={data} elements={              
-              <>
-              <div className='flex flex-col items-center gap-2'>
-                  <div className='flex-shrink-0'>
-                      <img src={data?.img} className='object-cover flex-shrink-0 h-[22rem] w-[22rem]' alt="" />
-                  </div>
-                  <div className='flex flex-col'>
-                      <span className='vogue text-white text-xl lg:text-2xl'>
-                        {data.title}
-                      </span>
-                      <span className='vogue text-white'>
-                        <ArrowRightAltIcon/>
-                      </span>
-                  </div>
-              </div>
-              </>
-            }>
+            className='flex flex-col gap-10'>
 
-              </TransitionsModal>
+                <span className='text-4xl text-primary-dark font-bold'>
+                    Featured Projects
+                </span>
+                {personalInfo &&
+                  personalInfo[0].user_project.map((project, index) => (
+                    <div key={index} className='flex flex-col-reverse gap-10 2xl:grid 2xl:grid-cols-3 box-shadow p-6'>
+                        <div className='xl:col-span-2 flex flex-col gap-8'>
+                          <div className="flex flex-wrap gap-2 text-nowrap">
+                                  {project.technology.map((tech_name, index) => (
+                                      <span key={index} className='px-10 py-2 rounded-lg font-semibold text-primary-dark bg-tertiary'>{tech_name.name}</span>
+                                  ))}
+                          </div>
 
-        ))
-        }
+                          <span className="text-semi-dark font-bold text-2xl lg:mt-1 lg:text-start text-center mt-4">
+                                {project.title}
+                          </span>
+
+                          <span className='text-secondary-dark font-medium mt-4 lg:text-justify text-center sm:text-md text-sm'>
+                                {project.description}
+                          </span>
+                        
+
+                                  <div className='col-span-2 flex flex-row gap-5'>
+                                          <a href={project.preview_link} target='_blank' className='px-10 py-3 w-full flex justify-center gap-1 rounded-md text-tertiary bg-secondary'>
+                                            <PreviewIcon/> Preview
+                                          </a>
+                                          <a href={project.github_link} target='_blank' className='px-10 py-3 w-full flex justify-center gap-1 rounded-md text-primary-dark bg-dull-gray'>
+                                           <GitHubIcon/> Github
+                                          </a>
+                                  </div>
+
+                              <span className="text-secondary-dark mt-5 lg:mt-8 opacity-60 text-sm lg:text-start text-center">
+                                  {project.date}
+                              </span>
+                        </div>
+
+                        <img src={project.img} alt="" className='md:w-1/3 w-1/4 md:min-h-[9.5rem] min-h-[6rem] md:min-w-[19.5rem] min-w-[12.5rem] place-self-center' />
+
+
+                    </div>
+                  ))
+              }
+
             </motion.div >
            
-        </div>
     </div>
   )
 }

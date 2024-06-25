@@ -1,5 +1,6 @@
 import axios from 'axios';
-const BASE_URL = 'https://f3f2-58-71-15-5.ngrok-free.app/';
+const BASE_URL = 'https://my-portfolio-x0jq.onrender.com/';
+
 
 
 export const baseAxios = axios.create({

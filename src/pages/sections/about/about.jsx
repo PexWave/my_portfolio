@@ -16,6 +16,7 @@ import Mylocation from '../../../components/extras/location'
 
 export default function About({personalInfo}) {
   const [fileData, setFileData] = useState(null); // State to store downloaded data
+  const [hasInfo, setHasInfo] = useState(); // Flag to indicate data availability
 
   const handleDownloadClick = async () => {
     try {
@@ -41,62 +42,67 @@ export default function About({personalInfo}) {
     }
   }, [fileData]);
 
+  useEffect(() => {
+    if (personalInfo) { // Check if personalInfo is available
+
+        setHasInfo(personalInfo[0]); 
+    }
+  }, [personalInfo]); 
 
   return (
     <div
-     id='About'  className='flex justify-center items-center h-screen gradient2'>
+     id='About'  className='py-32'>
 
      <motion.div 
      
-      initial={{y: "-100%", opacity: 0}} 
-      animate={{y:'0%'}}
-      whileInView={{y:["-100%","0%"], opacity:[0,1]}}   
+      initial={{y: 100, opacity: 0}} 
+      animate={{y:0}}
+      whileInView={{y:[100,0], opacity:[0,1]}}   
       transition={{ ease: "easeOut", duration: 1, bounce: 1 }}
-      exit={{y: "-100%"}}
+      exit={{y: 100}}
+      viewport={{ amount:0.1 }}
+
+      className='flex flex-col 2xl:flex-row gap-10'
       >
 
-        {personalInfo?.map((info,key) => {
-          return (
-        <div key={key} className='grid grid-flow-row m-28 xl:space-x-40 xl:grid-cols-3'>
-          <div className='flex flex-col justify-center items-center gap-2 xl:col-start-1'>
-              <span className='text-white whitespace-nowrap text-4xl'>
-                {info.first_name} {info.middle_name} {info.last_name}
+          <div className='flex flex-col w-full text-txt text-justify font-normal'>
+              <span className='text-6xl !text-primary-dark mb-10'>
+                  About Me
               </span>
-              <span className='text-white whitespace-nowrap text-3xl'>
-              Python Developer  
-              </span>
-              <InthephilippinesBtn/>
 
-              <a text={'Download CV'} href={info.resume} className={'text-white vogue gradient w-min my-3 whitespace-nowrap p-3 rounded-lg'} >Download Resume</a>
+              {hasInfo && 
+              <div className='flex flex-col gap-8 text-2xl'>
+                  <span className='!text-primary-dark'>
+                      {hasInfo.about_me}
+                  </span>
+              </div>
+              }
+
+              {hasInfo && 
+              <a href={hasInfo.resume} className='bg-secondary w-full text-center lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
+                  View Resume
+              </a>
+              }
+
+          </div>
+          
+          <div className='flex flex-col'>
+              <span className='text-6xl !text-primary-dark mb-10'>
+                Technologies I use  
+              </span>
+
+              {hasInfo && hasInfo.user_technology && (
+                  <div className='flex flex-row flex-wrap gap-4'>
+                    {hasInfo.user_technology && hasInfo.user_technology.map((technology, index) => (
+                      
+                        <img key={index} src={technology.technology_image_url} className='h-16 w-min' alt="" />
+                      
+                    ))}
+                  </div>
+                )}
+                
           </div>
 
-
-            <div className='text-white xl:col-span-2 space-y-4'>
-                <span>
-                {info.self_description}
-                </span>
-
-                <div className='grid md:grid-cols-2 grid-cols-1 grid-flow-row'>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Phonenumber number={info.phone_number}/>
-                    </span>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Emailadd email={info.email}/>
-                    </span>
-                    <span className='flex flex-row gap-2 my-2 text-xl'>
-                        <Myname name={info.first_name + " " + info.last_name}/>
-                    </span>
-                    <span className='flex flex-row gap-2 whitespace-nowrap my-2 text-xl'>
-                        <Mylocation address={info.address}/>
-                    </span>
-                </div>
-
-              
-                
-            </div>
-        </div>
-          )
-        })}
         </motion.div>
     </div>
   )

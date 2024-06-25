@@ -1,9 +1,3 @@
-.hero{
-    background-image: url('/assets/images/bgflag.jpg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat;
-}
 
 
 .vogue{
@@ -16,3 +10,53 @@ span span{
 .shadow{
     text-shadow: 0 0 4px #050502d0;
 }
+
+
+.frame {
+    width: 400px;
+    height: 410px;
+    padding: 10px;
+    border: 4px solid #1cd45f;
+    font-family: "Roboto", serif;
+    font-size: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
+    transition: 1s;
+  }
+  
+  .frame::before,
+  .frame::after {
+    position: absolute;
+    background: #eee;
+    z-index: -1;
+    transition: 1s;
+    content: "";
+  }
+  
+  .frame::before {
+    height: 529px;
+    width: 200px;
+    background: white;
+  }
+  
+  .frame::after {
+    width: 400px;
+    height: 270px;
+    background: white;
+
+  }
+  
+  .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  

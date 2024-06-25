@@ -10,4 +10,12 @@
 
     padding: 0px !important;
 }
+.MuiPaper-root{
+    width: 100vw;
 
+}
+
+
+.MuiTypography-root{
+    color: black !important
+}
