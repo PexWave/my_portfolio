@@ -103,7 +103,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 
     ]
 
