@@ -5,9 +5,10 @@ const usegetProjects = () => {
 
         const getAllProjects = async () => {
                 const response = await baseAxios.get('/projects', {
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })

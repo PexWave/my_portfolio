@@ -9,7 +9,10 @@ export default async function logout(auth, navigate) {
         const response = await baseAxios.post('logout/',
         data,
         {
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+                             "ngrok-skip-browser-warning": "69420",
+
+                     },
         }
       );
         navigate('/signin');

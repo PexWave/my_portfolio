@@ -26,9 +26,8 @@ backend/*.key
 backend/*.env
 
 env
+
 .env*
 env*
 
 secrets.txt
-
-

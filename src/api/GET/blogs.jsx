@@ -5,9 +5,10 @@ const usegetBlogs = () => {
 
         const getAllBlogs = async () => {
                 const response = await baseAxios.get('/blogs', {
-                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })

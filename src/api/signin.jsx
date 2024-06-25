@@ -17,10 +17,14 @@ async function signIn(formData, setAuth, navigate, from){
     try {
       const response = await baseAxios.post('login/',
       postData,
-        {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true
+                                            {
+            headers: { 
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin":"*",
+            "ngrok-skip-browser-warning": "69420",
+
           }
+                                            }
     );
 
       const accessToken = response?.data?.res?.access_token;

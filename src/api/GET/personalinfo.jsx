@@ -4,10 +4,11 @@ import useAuth from "../../hooks/useAuth";
 const usegetPersonalInfo = () => {
 
         const getPersonalInfo = async () => {
-                const response = await baseAxios.get('/users', {
-                    withCredentials: true,
+                const response = await baseAxios.get('/users/', {
                     headers: {
                         'Content-Type': 'application/json',
+                                    "ngrok-skip-browser-warning": "69420",
+
                        },
                     
                 })
