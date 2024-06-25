@@ -48,7 +48,7 @@ export default function Porfolio({personalInfo}) {
                           </span>
                         
 
-                                  <div className='col-span-2 flex flex-row gap-5'>
+                                  <div className='col-span-2 flex flex-col md:flex-row gap-5'>
                                           <a href={project.preview_link} target='_blank' className='px-10 py-3 w-full flex justify-center gap-1 rounded-md text-tertiary bg-secondary'>
                                             <PreviewIcon/> Preview
                                           </a>
