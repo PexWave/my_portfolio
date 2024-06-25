@@ -66,13 +66,13 @@ export default function About({personalInfo}) {
       >
 
           <div className='flex flex-col w-full text-txt text-justify font-normal'>
-              <span className='text-6xl !text-primary-dark mb-10'>
+              <span className='text-6xl text-big-text mb-10'>
                   About Me
               </span>
 
               {hasInfo && 
               <div className='flex flex-col gap-8 text-2xl'>
-                  <span className='!text-primary-dark'>
+                  <span className='text-small-text'>
                       {hasInfo.about_me}
                   </span>
               </div>
@@ -87,7 +87,7 @@ export default function About({personalInfo}) {
           </div>
           
           <div className='flex flex-col'>
-              <span className='text-6xl !text-primary-dark mb-10'>
+              <span className='text-6xl !text-big-text mb-10'>
                 Technologies I use  
               </span>
 

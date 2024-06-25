@@ -64,7 +64,7 @@ export default function Hero({personalInfo}) {
         {hasInfo && 
       <div 
       
-      className='flex flex-col xl:flex-row gap-24 xl:pr-32 p-12 items-center row-start-1 xl:col-start-1 col-start-1 z-10'>
+      className='flex flex-col xl:flex-row gap-24 xl:pr-32 items-center row-start-1 xl:col-start-1 col-start-1 z-10'>
 
       <motion.div
       initial={{x: -100}} 
@@ -87,7 +87,7 @@ export default function Hero({personalInfo}) {
       
             className='w-min flex flex-col gap-6 items-center'>
               <span className='flex flex-col gap-2 lg:text-7xl text-5xl'> 
-                 <span  className='bungee block whitespace-nowrap !text-primary-dark'>Hi I am 👋🏼</span>
+                 <span  className='bungee block whitespace-nowrap !text-small-text'>Hi I am 👋🏼</span>
                  <div className='bungee flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-dull-gray'>
                     <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
                   <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
@@ -96,7 +96,7 @@ export default function Hero({personalInfo}) {
               </span>
 
               <div className='flex flex-col'>
-                <span className=' vogue !text-primary-dark md:text-2xl text-2xl'> 
+                <span className=' vogue text-small-text md:text-2xl text-2xl'> 
                   {hasInfo.self_description}
                 </span>
 

@@ -15,6 +15,8 @@ colors: {
     'tertiary': '#EBF8F2',
     'dull-gray': '#919EAB',
     'primary-dark': '#212B36',
+    'big-text': '#333',
+    'small-text': '#555'
 
     },
 extend: {},

@@ -74,7 +74,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
             }}>
               
-              <ListItemText className='text-center' primary={text.toUpperCase()}/>
+              <ListItemText className='text-center !text-small-text' primary={text.toUpperCase()}/>
             </ListItemButton>
 
           </ListItem>
@@ -94,19 +94,18 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
     <ThemeProvider theme={theme}>
       <Box
         component="main"
-        className='relative my-28 mx-28 bg-primary lg:mx-28 3xl:mx-80 h-full'
+        className='relative my-28 mx-10 bg-primary lg:mx-28 3xl:mx-80 h-full'
       >
 
       <AppBar
       
         position="fixed"
         sx={{
-          width: '100vw',
           height: '100px',
           backgroundColor: '#fff',  
           
          }}
-         className='px-28 lg:px-14 3xl:!mx-80'
+         className='px-10 lg:px-14 3xl:!mx-80'
       >
         <Toolbar className='!w-full flex justify-between'>
         <IconButton

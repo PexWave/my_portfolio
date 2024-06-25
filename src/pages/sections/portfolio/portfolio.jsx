@@ -25,7 +25,7 @@ export default function Porfolio({personalInfo}) {
 
             className='flex flex-col gap-10'>
 
-                <span className='text-4xl text-primary-dark font-bold'>
+                <span className='text-4xl text-big-text font-bold'>
                     Featured Projects
                 </span>
                 {personalInfo &&
@@ -34,7 +34,7 @@ export default function Porfolio({personalInfo}) {
                         <div className='xl:col-span-2 flex flex-col gap-8'>
                           <div className="flex flex-wrap gap-2 text-nowrap">
                                   {project.technology.map((tech_name, index) => (
-                                      <span key={index} className='px-10 py-2 rounded-lg font-semibold text-primary-dark bg-tertiary'>{tech_name.name}</span>
+                                      <span key={index} className='px-10 py-2 rounded-lg font-semibold text-small-text bg-tertiary'>{tech_name.name}</span>
                                   ))}
                           </div>
 
