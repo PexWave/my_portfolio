@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='flex flex-col justify-center items-center bg-tertiary w-full h-24'>
+    <div className='flex flex-col text-center justify-center items-center p-10 py-10 bg-tertiary w-full h-24'>
         <span>
         Built with ReactJS, Django Rest Framework & TailwindCSS, deployed with Vercel.
         </span>
