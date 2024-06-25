@@ -23,6 +23,9 @@ import { motion } from "framer-motion";
 
 import { scroller } from 'react-scroll';
 
+//components
+import Footer from '../footer/Footer';
+
 //css files
 import './drawer.css'
 
@@ -91,7 +94,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
     <ThemeProvider theme={theme}>
       <Box
         component="main"
-        className='my-28 xl:my-0 bg-primary mx-10 lg:mx-80'
+        className='relative my-28 mx-28 bg-primary lg:mx-28 3xl:mx-80 h-full'
       >
 
       <AppBar
@@ -103,7 +106,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
           backgroundColor: '#fff',  
           
          }}
-         className='px-10 lg:!px-80'
+         className='px-28 lg:px-14 3xl:!mx-80'
       >
         <Toolbar className='!w-full flex justify-between'>
         <IconButton
@@ -166,12 +169,11 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
           {drawer}
         </Drawer>
         
-      
-
-
-       <Home/>
+        <Home/>
 
        </Box>
+
+       <Footer/>
 
     </ThemeProvider>
 

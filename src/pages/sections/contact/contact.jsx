@@ -4,6 +4,10 @@ import { useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +18,7 @@ import {sendEmail} from '../../../api/POST/sendemail';
 //css
 import './contact.css';
 
-export default function ContactPage() {
+export default function ContactPage({personalInfo}) {
     const notify = () => toast("Wow so easy !");
 
 
@@ -98,25 +102,40 @@ export default function ContactPage() {
 
                     
                         <div className='flex flex-row flex-wrap gap-3 text-sm'>
-                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
-                                asakilsarhan@gmail.com
-                            </div>
-                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
-                                asakilsarhan@gmail.com
-                            </div>
-                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
-                                asakilsarhan@gmail.com
-                            </div>
-                            <div className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary'>
-                                asakilsarhan@gmail.com
-                            </div>
+                        {personalInfo && 
+                              personalInfo[0].user_socmed.map((info, index) => (
+                                info.platform === 'Instagram' ? 
+                                  <a key={index} target='_blank' className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+                                    <InstagramIcon sx={{ fontSize: '2rem' }} />
+                                  </a> 
+                                : info.platform === 'Facebook' ?
+                                  <a key={index} target='_blank' className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+                                    <FacebookRoundedIcon sx={{ fontSize: '2rem' }} />
+                                  </a>
+                                : info.platform === 'linkedin' ?
+                                  <a key={index} target='_blank' className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+                                    <LinkedInIcon sx={{ fontSize: '2rem' }} />
+                                  </a>
+                                : info.platform === 'github' ?
+                                <a key={index} target='_blank' className='h-min px-10 py-4 bg-opacity-55 rounded-md bg-secondary' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+                                  <GitHubIcon sx={{ fontSize: '2rem' }} />
+                                </a>
+                              : null
+                              ))
+                            }
+
                         </div>
 
                         <br />
                         <br />
-                        <button className='underline place-self-start text-sm'>
+
+                        {personalInfo && 
+            
+                          <a href={personalInfo[0].resume} className='underline place-self-start text-sm'>
                             View my resume
-                        </button>
+                        </a>
+                        }
+
                     </div>
 
 
@@ -202,9 +221,9 @@ export default function ContactPage() {
                     <Button 
                     color='buttonColor'
                     type='submit'
-                    className='vogue !text-xl !max-w hover:!bg-tertiary'
+                    className='vogue !text-xl !max-w hover:!bg-secondary'
                     sx={{
-                      backgroundColor: '#1cd45f',
+                      backgroundColor: '#1BB467',
                       color: 'white',
 
 

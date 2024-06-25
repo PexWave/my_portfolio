@@ -11,11 +11,38 @@ class TechnologyUsedSerializer(serializers.ModelSerializer):
         fields = [ 'name', 'technology_image_url']
 
 
+class SocialMediaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = SocialMedia
+        fields = ['url','platform', 'social_media_link']
+
+    def create(self, validated_data):
+        user_socialmedia_data = validated_data
+        auth_user = self.context['request'].user
+        instance = SocialMedia.objects.create(user=auth_user, **validated_data)
+        
+        return instance
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    technology = TechnologyUsedSerializer(many=True, read_only=True)
+    class Meta:
+        model = Project
+        fields = ['id', 'title', 'img', 'tag','technology', 'date', 'github_link','preview_link', 'description']
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     user_technology = TechnologyUsedSerializer(many=True, read_only=True)
+    user_project = ProjectSerializer(many=True, read_only=True)
+    user_socmed = SocialMediaSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'middle_name', 'self_description', 'email', 'address', 'phone_number', 'about_me', 'user_technology', 'position', 'resume']
+        fields = ['id', 'email', 'first_name', 'last_name',
+         'middle_name', 'self_description', 'email',
+          'address', 'phone_number', 'about_me', 'user_technology',
+          'user_project', 'user_socmed',
+           'position', 'resume']
     
     # def create(self, validated_data):
     #     user_socialmedia_data = validated_data.pop('user_socmed')
@@ -36,23 +63,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     #         SocialMedia.objects.update_or_create(user=user,defaults=social_media_data)
             
     #     return instance
-
-class SocialMediaSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = SocialMedia
-        fields = ['url','platform', 'social_media_link']
-
-    def create(self, validated_data):
-        user_socialmedia_data = validated_data
-        auth_user = self.context['request'].user
-        instance = SocialMedia.objects.create(user=auth_user, **validated_data)
-        
-        return instance
-
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Project
-        fields = ['id', 'title', 'img', 'tag', 'description']
 
 
 

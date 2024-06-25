@@ -20,7 +20,17 @@ class SocialMedia(models.Model):
     social_media_link = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
-        return self.user.platform
+        return self.platform
+
+
+class TechnologyUsed(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_technology")
+    name = models.CharField(max_length=250, blank=True, null=True)
+    technology_image_url = models.URLField(max_length=500, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.name
 
 
 class Project(models.Model):
@@ -29,7 +39,11 @@ class Project(models.Model):
     img = models.ImageField(max_length=250, upload_to='images/', null=True, blank=True)
     tag = models.CharField(max_length=250, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
-   
+    technology = models.ManyToManyField(TechnologyUsed, null=True, related_name="project_technology")
+    preview_link = models.URLField(max_length=500, blank=True, null=True)
+    github_link = models.URLField(max_length=500, blank=True, null=True)
+    date = models.DateField(null=True, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -40,11 +54,3 @@ class Blog(models.Model):
     description = models.TextField(null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     
-class TechnologyUsed(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_technology")
-    name = models.CharField(max_length=250, blank=True, null=True)
-    technology_image_url = models.URLField(max_length=500, blank=True, null=True)
-
-
-    def __str__(self):
-        return self.name

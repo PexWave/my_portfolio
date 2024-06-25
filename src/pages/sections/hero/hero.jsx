@@ -25,6 +25,8 @@ import './hero.css'
 
 //icons
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import InthephilippinesBtn from '../../../components/extras/inthephilippinesBtn';
 import Phonenumber from '../../../components/extras/phonenumber';
@@ -85,16 +87,16 @@ export default function Hero({personalInfo}) {
       
             className='w-min flex flex-col gap-6 items-center'>
               <span className='flex flex-col gap-2 lg:text-7xl text-5xl'> 
-                 <span  className='bungee block whitespace-nowrap !text-txt'>Hi I am 👋🏼</span>
-                 <div className='bungee flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-tertiary'>
-                    <span className='bungee !text-tertiary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
-                  <span className='bungee !text-tertiary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
+                 <span  className='bungee block whitespace-nowrap !text-primary-dark'>Hi I am 👋🏼</span>
+                 <div className='bungee flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-dull-gray'>
+                    <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
+                  <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
                  </div> 
                  
               </span>
 
               <div className='flex flex-col'>
-                <span className=' vogue !text-txt md:text-2xl text-2xl'> 
+                <span className=' vogue !text-primary-dark md:text-2xl text-2xl'> 
                   {hasInfo.self_description}
                 </span>
 
@@ -104,7 +106,31 @@ export default function Hero({personalInfo}) {
         {socMedLink?.map((info,index) => {
           return(
           <div key={index}>
-            <div className='p-2 rounded-xl text-black hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'><a target='_blank' href={'https://' + info.social_media_link}>{info.platform === 'Facebook' ? <FacebookRoundedIcon sx={{ fontSize:'2rem'}}/> : <InstagramIcon  sx={{ fontSize:'2rem'}}/> }</a></div>
+            <div className='p-2 rounded-xl text-black hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'>
+                      
+            {info.platform === 'Facebook' ? 
+              <a target='_blank' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+                <FacebookRoundedIcon sx={{ fontSize: '2rem' }} />
+              </a> 
+          : null}
+          {info.platform === 'Instagram' ? 
+            <a target='_blank' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+              <InstagramIcon sx={{ fontSize: '2rem' }} />
+            </a> 
+        : null}
+          {info.platform === 'linkedin' ? 
+            <a target='_blank' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+              <LinkedInIcon sx={{ fontSize: '2rem' }} />
+            </a> 
+        : null}
+
+          {info.platform === 'github' ? 
+            <a target='_blank' rel='noopener noreferrer' href={'https://' + info.social_media_link}>
+              <GitHubIcon sx={{ fontSize: '2rem' }} />
+            </a> 
+        : null}
+                     
+                </div>
           </div>
           )
       })}

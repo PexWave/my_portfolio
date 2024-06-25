@@ -62,29 +62,32 @@ export default function About({personalInfo}) {
       exit={{y: 100}}
       viewport={{ amount:0.1 }}
 
-      className='flex flex-col md:flex-row gap-10'
+      className='flex flex-col 2xl:flex-row gap-10'
       >
 
           <div className='flex flex-col w-full text-txt text-justify font-normal'>
-              <span className='text-6xl mb-10'>
+              <span className='text-6xl !text-primary-dark mb-10'>
                   About Me
               </span>
 
               {hasInfo && 
               <div className='flex flex-col gap-8 text-2xl'>
-                  <span>
+                  <span className='!text-primary-dark'>
                       {hasInfo.about_me}
                   </span>
               </div>
               }
 
-              <button className='bg-tertiary w-full lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
+              {hasInfo && 
+              <a href={hasInfo.resume} className='bg-secondary w-full text-center lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
                   View Resume
-              </button>
+              </a>
+              }
+
           </div>
           
           <div className='flex flex-col'>
-              <span className='text-6xl mb-10'>
+              <span className='text-6xl !text-primary-dark mb-10'>
                 Technologies I use  
               </span>
 

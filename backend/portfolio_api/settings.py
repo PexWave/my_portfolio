@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
-from dotenv import dotenv_values
-config = dotenv_values(".env")
+from dotenv import load_dotenv
 
+load_dotenv() 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,22 +27,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config['DEBUG']
-SECRET_KEY = config['SECRET_KEY']
-OIDC_RSA_PRIVATE_KEY = config['OIDC_RSA_PRIVATE_KEY']
-TOKEN_URL = config['TOKEN_URL']
-REVOKE_TOKEN_URL = config['REVOKE_TOKEN_URL']
-CLIENT_ID = config['CLIENT_ID']
-CLIENT_SECRET = config['CLIENT_SECRET']
-AUTHENTICATOR_ID = config['AUTHENTICATOR_ID']
-AUTHENTICATOR_SECRET = config['AUTHENTICATOR_SECRET']
+DEBUG = os.getenv('DEBUG')
+SECRET_KEY = os.getenv('SECRET_KEY')
+OIDC_RSA_PRIVATE_KEY = os.getenv('OIDC_RSA_PRIVATE_KEY')
+TOKEN_URL = os.getenv('TOKEN_URL')
+REVOKE_TOKEN_URL = os.getenv('REVOKE_TOKEN_URL')
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+AUTHENTICATOR_ID = os.getenv('AUTHENTICATOR_ID')
+AUTHENTICATOR_SECRET = os.getenv('AUTHENTICATOR_SECRET')
 
 
 
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = config['DJANGO_ALLOWED_HOSTS'].split(" ")
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(" ")
 
 CORS_ORIGIN_ALLOW_ALL = True   
 CORS_ALLOW_ALL_ORIGINS = True
@@ -51,7 +51,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW = True
 CORS_ALLOWED_ORIGINS = [    
 'https://my-portfolio-i1xukfzic-pexwaves-projects.vercel.app',
-    'https://3029-58-69-90-10.ngrok-free.app'
+'https://3029-58-69-90-10.ngrok-free.app'
 
 ]
 
@@ -103,6 +103,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     ]
 
 ROOT_URLCONF = 'portfolio_api.urls'
@@ -125,7 +127,7 @@ TEMPLATES = [
 
 OAUTH2_PROVIDER = {
     "OIDC_ENABLED": True,
-    "OIDC_RSA_PRIVATE_KEY": config["OIDC_RSA_PRIVATE_KEY"],
+    "OIDC_RSA_PRIVATE_KEY": os.getenv("OIDC_RSA_PRIVATE_KEY"),
     "SCOPES": {
         "openid": "OpenID Connect scope",
         'read': 'Read scope',
@@ -159,11 +161,11 @@ AUTH_USER_MODEL='api.User'
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.sqlite3',
-        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "NAME": os.getenv("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.getenv("SQL_USER", "user"),
+        "PASSWORD": os.getenv("SQL_PASSWORD", "password"),
+        "HOST": os.getenv("SQL_HOST", "localhost"),
+        "PORT": os.getenv("SQL_PORT", "5432"),
     }
 }
 REST_FRAMEWORK = {
@@ -210,19 +212,18 @@ USE_I18N = True
 USE_TZ = True
 
 
+AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL')
 
+JWT_SIGNING_KEY = os.getenv('JWT_SIGNING_KEY')
 
-JWT_SIGNING_KEY = os.environ.get('JWT_SIGNING_KEY')
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-southeast-1.amazonaws.com'
 
-AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
 
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400'
@@ -259,12 +260,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SENDFILE_BACKEND = "django_sendfile.backends.simple"
 SENDFILE_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
 
 
