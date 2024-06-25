@@ -47,7 +47,7 @@ span span{
   .frame::after {
     width: 400px;
     height: 270px;
-    background: white;
+    background: #F9F9FA;
 
   }
   
