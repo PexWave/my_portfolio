@@ -9,6 +9,7 @@ import ResponsiveDrawer from '../../components/drawer/drawer';
 import Loader from '../../components/catloader/catloader';
 import { ToastContainer } from 'react-toastify';
 import Footer from '../../components/footer/Footer';
+
 //api
 import getPersonalInfo from '../../api/GET/personalinfo';
 import getAllBlogs from '../../api/GET/blogs';

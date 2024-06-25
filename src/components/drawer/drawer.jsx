@@ -64,7 +64,14 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
         {navitems.map((text, index) => (
           <ListItem key={text} disablePadding>
 
-          <ListItemButton onClick={() => {
+          <ListItemButton 
+                    sx={{
+
+                      '& .MuiTypography-root': {
+                        color: '#EBF8F2',
+                      },
+                    }} 
+          onClick={() => {
                 
                 const section = document.querySelector(`#${text}`);
                 section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
@@ -74,7 +81,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
             }}>
               
-              <ListItemText className='text-center !text-small-text' primary={text.toUpperCase()}/>
+              <ListItemText sx={{color:'#EBF8F2'}} className='text-center !text-tertiary' primary={text.toUpperCase()}/>
             </ListItemButton>
 
           </ListItem>
@@ -128,7 +135,14 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
         {navitems.map((text, index) => (
           <ListItem key={text} disablePadding>
 
-          <ListItemButton onClick={() => {
+          <ListItemButton  
+          sx={{
+
+            '& .MuiTypography-root': {
+              color: '#333',
+            },
+          }} 
+  onClick={() => {
                 const section = document.querySelector(`#${text}`);
                 section.scrollIntoView( { behavior: 'smooth', block: 'center' } );
                 
@@ -164,7 +178,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
             '& .MuiDrawer-paper': { boxSizing: 'border-box' },
           }}
         >
-          <ClearSharpIcon sx={{fontSize: 45}} onClick={() => setMobileOpen(false)} className="absolute transition-transform ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 right-11 top-8 z-10"/>
+          <ClearSharpIcon sx={{fontSize: 45}} onClick={() => setMobileOpen(false)} className="absolute transition-transform ease-in-out text-tertiary duration-300 hover:-translate-y-1 hover:scale-110 right-11 top-8 z-10"/>
           {drawer}
         </Drawer>
         

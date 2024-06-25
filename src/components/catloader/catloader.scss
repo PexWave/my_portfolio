@@ -9,16 +9,18 @@
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
 }
 
+/* Parent container for centering */
+
+
 .circle-container {
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 20vmin; // Responsive width
+  height: 20vmin; // Responsive height
   border-radius: 50%;
   position: relative;
   @include fixAnimationsOverflow();
@@ -26,22 +28,22 @@
 
   .circle-content {
     background-color: #1BB467;
-    width: 90px;
-    height: 90px;
+    width: 90%; // Relative to parent
+    height: 90%; // Relative to parent
     border-radius: 50%;
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 5%;
+    left: 5%;
     z-index: 2;
   }
 
   .animated-block {
     background-color: #212B36;
-    width: 80px;
-    height: 80px;
+    width: 80%; // Relative to parent
+    height: 80%; // Relative to parent
     position: absolute;
-    left: -30px;
-    top: -30px;
+    left: -30%;
+    top: -30%;
     z-index: 1;
     transform-origin: 100% 100%;
     transform: rotate(0deg);
@@ -59,5 +61,20 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: normal;
+  }
+}
+
+/* Media Queries for additional responsiveness */
+@media (max-width: 600px) {
+  .circle-container {
+    width: 20vmin; // Adjust size for smaller screens
+    height: 20vmin;
+  }
+}
+
+@media (min-width: 1200px) {
+  .circle-container {
+    width: 15vmin; // Adjust size for larger screens
+    height: 15vmin;
   }
 }
