@@ -60,7 +60,7 @@ export default function Hero({personalInfo, isFirstLoad}) {
 
   return (
     <>
-    <div id="Home" className='flex justify-center h-min py-20 lg:py-10 mt-12 lg:h-[1200px]'>
+    <div id="Home" className='flex justify-center xl:h-[800px] py-20 lg:py-10 mt-12 lg:h-[1200px]'>
         {hasInfo && 
       <div 
       
@@ -87,16 +87,16 @@ export default function Hero({personalInfo, isFirstLoad}) {
       
             className='w-min flex flex-col gap-6 items-center'>
               <span className='flex flex-col gap-2 lg:text-7xl text-5xl'> 
-                 <span  className='bungee block whitespace-nowrap !text-small-text'>Hi I am 👋🏼</span>
-                 <div className='bungee flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-dull-gray'>
-                    <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
-                  <span className='bungee !text-secondary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
+                 <span  className='block whitespace-nowrap !font-[lato] !text-small-text'>Hi! I am 👋🏼</span>
+                 <div className='flex flex-row gap-3 whitespace-nowrap lg:text-8xl text-6xl !text-dull-gray'>
+                    <span className='font-medium !text-secondary lg:text-8xl text-6xl'>{hasInfo.first_name}</span>
+                  <span className='font-medium !text-secondary lg:text-8xl text-6xl'>{hasInfo.last_name}</span>
                  </div> 
                  
               </span>
 
               <div className='flex flex-col'>
-                <span className=' vogue text-small-text md:text-2xl text-2xl'> 
+                <span className=' font-[lato] text-small-text md:text-2xl text-2xl'> 
                   {hasInfo.self_description}
                 </span>
 
@@ -106,7 +106,7 @@ export default function Hero({personalInfo, isFirstLoad}) {
      {personalInfo && 
         personalInfo[0].user_socmed.map((info, index) => (
           <div key={index}>
-            <div className='p-2 rounded-xl text-black hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'>
+            <div className='p-2 rounded-xl text-primary-dark hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'>
                       
             {info.platform === 'Facebook' ? 
               <a target='_blank' rel='noopener noreferrer' href={'https://' + info.social_media_link}>

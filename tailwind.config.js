@@ -8,6 +8,12 @@ export const content = [
     "./src/**/*.{html,js,jsx}"
 ];
 export const theme = {
+
+theme: {
+    fontFamily: {
+        'lato': ['lato'],
+    }
+    },
 colors: {
     ...colors,
     'primary': '#F9F9FA',
@@ -19,6 +25,7 @@ colors: {
     'small-text': '#555'
 
     },
+
 extend: {},
 };
 export const plugins = [

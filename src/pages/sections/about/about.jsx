@@ -51,7 +51,7 @@ export default function About({personalInfo}) {
 
   return (
     <div
-     id='About'  className='py-32'>
+     id='About'  className='py-32 my-32'>
 
      <motion.div 
      
@@ -66,20 +66,20 @@ export default function About({personalInfo}) {
       >
 
           <div className='flex flex-col w-full text-txt text-justify font-normal'>
-              <span className='text-4xl md:text-6xl text-big-text mb-10'>
+              <span className='text-4xl font-[lato] md:text-6xl text-big-text mb-10'>
                   About Me
               </span>
 
               {hasInfo && 
               <div className='flex flex-col gap-8 text-2xl'>
-                  <span className='text-small-text'>
+                  <span className='text-small-text font-[lato]'>
                       {hasInfo.about_me}
                   </span>
               </div>
               }
 
               {hasInfo && 
-              <a href={hasInfo.resume} className='bg-secondary w-full text-center lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
+              <a href={hasInfo.resume} className='bg-secondary font-[lato] w-full text-center lg:w-min px-10 py-2 rounded-lg text-nowrap text-primary text-2xl mt-10'>
                   View Resume
               </a>
               }

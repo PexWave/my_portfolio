@@ -20,6 +20,27 @@ background-color: #F9F9FA;
   }
 
 
+  @layer base {
+    @font-face {
+      font-family: 'lato';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local('fonts'), url(../fonts/Lato/Lato-Regular.ttf) format('opentype');
+    }
+  }
+
+  @layer base {
+    @font-face {
+      font-family: 'latoBold';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local('fonts'), url(../fonts/Lato/Lato-Bold.ttf) format('opentype');
+    }
+  }
+
+
   /*here you can get code for the responsive scroll bar*/
 ::-webkit-scrollbar{
   width: 10px;

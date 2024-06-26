@@ -89,8 +89,8 @@ export default function ContactPage({personalInfo}) {
        <div id='Contact' className='flex flex-col xl:flex-row gap-5 py-32 px-10 h-min'>
 
                     <div className='flex flex-col w-full p-5'>
-                        <span className="font-bold text-4xl text-big-text mb-[1.5rem]">Contact</span>
-                        <div className='flex flex-col space-y-1 text-small-text text-2xl mb-[1.5rem]'>
+                        <span className="font-bold font-[lato] text-4xl text-big-text mb-[1.5rem]">Contact</span>
+                        <div className='flex flex-col font-[lato] space-y-1 text-small-text text-2xl mb-[1.5rem]'>
                         <span>
                             Got the ideas? I have the skills. Let's make it a reality!
                         </span>
@@ -131,7 +131,7 @@ export default function ContactPage({personalInfo}) {
 
                         {personalInfo && 
             
-                          <a href={personalInfo[0].resume} className='underline text-small-text place-self-start text-sm'>
+                          <a href={personalInfo[0].resume} className='underline font-[lato] text-small-text place-self-start text-sm'>
                             View my resume
                         </a>
                         }
@@ -149,7 +149,7 @@ export default function ContactPage({personalInfo}) {
                   autoComplete="off"
                 className='flex flex-col gap-10 w-full'>
                   
-                  <span className="mt-3 text-big-text font-bold md:text-3xl text-2xl">Reach out to me</span>
+                  <span className="mt-3 text-big-text font-bold font-[lato] md:text-3xl text-2xl">Reach out to me</span>
 
                     <div className='grid 2xl:grid-cols-2 grid-rows gap-2'>
 
@@ -230,7 +230,7 @@ export default function ContactPage({personalInfo}) {
                     
                   }} 
                     variant="outlined">
-                        <span className='text-white text-xl h-12 flex items-center'>
+                        <span className='text-white font-[lato] text-xl h-12 flex items-center'>
                             Send message
                         </span>
                       </Button>

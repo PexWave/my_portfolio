@@ -69,6 +69,7 @@ function ResponsiveDrawer({window, theme, main: Home, navitems, logout = null}) 
 
                       '& .MuiTypography-root': {
                         color: '#EBF8F2',
+                        
                       },
                     }} 
           onClick={() => {

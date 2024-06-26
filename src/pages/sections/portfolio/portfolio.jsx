@@ -26,38 +26,38 @@ export default function Porfolio({personalInfo}) {
 
             className='flex flex-col gap-10'>
 
-                <span className='text-4xl text-big-text font-bold'>
+                <span className='text-4xl font-[lato] text-big-text font-bold'>
                     Featured Projects
                 </span>
                 {personalInfo &&
                   personalInfo[0].user_project.map((project, index) => (
-                    <div key={index} className='flex flex-col-reverse gap-10 2xl:grid 2xl:grid-cols-3 box-shadow p-6'>
+                    <div key={index} className='flex flex-col-reverse gap-10 2xl:grid 2xl:grid-cols-3 box-shadow p-6 bg-[#fff]'>
                         <div className='xl:col-span-2 flex flex-col gap-8'>
                           <div className="flex flex-wrap gap-2 text-nowrap">
                                   {project.technology.map((tech_name, index) => (
-                                      <span key={index} className='px-10 py-2 rounded-lg font-semibold text-small-text bg-tertiary'>{tech_name.name}</span>
+                                      <span key={index} className='px-10 py-2 rounded-lg border-[1px] border-[#555] font-semibold font-[lato] text-small-text bg-tertiary'>{tech_name.name}</span>
                                   ))}
                           </div>
 
-                          <span className="text-semi-dark font-bold text-2xl lg:mt-1 lg:text-start text-center mt-4">
+                          <span className="text-semi-dark font-bold font-[lato]  text-2xl lg:mt-1 lg:text-start text-center mt-4">
                                 {project.title}
                           </span>
 
-                          <span className='text-secondary-dark font-medium mt-4 lg:text-justify text-center sm:text-md text-sm'>
+                          <span className='text-secondary-dark font-medium font-[lato] mt-4 lg:text-justify text-center sm:text-md text-md'>
                                 {project.description}
                           </span>
                         
 
                                   <div className='col-span-2 flex flex-col md:flex-row gap-5'>
-                                          <a href={project.preview_link} target='_blank' className='px-10 py-3 w-full flex justify-center gap-1 rounded-md text-tertiary bg-secondary'>
+                                          <a href={project.preview_link} target='_blank' className='px-10 py-3 w-full border-[1px] border-[#555] flex justify-center gap-1 font-[lato] rounded-md text-tertiary bg-secondary'>
                                             <PreviewIcon/> Preview
                                           </a>
-                                          <a href={project.github_link} target='_blank' className='px-10 py-3 w-full flex justify-center gap-1 rounded-md text-primary-dark bg-dull-gray'>
+                                          <a href={project.github_link} target='_blank' className='px-10 py-3 w-full border-[1px] border-[#555] flex justify-center gap-1 font-[lato] rounded-md text-tertiary bg-dull-gray'>
                                            <GitHubIcon/> Github
                                           </a>
                                   </div>
 
-                              <span className="text-secondary-dark mt-5 lg:mt-8 opacity-60 text-sm lg:text-start text-center">
+                              <span className="text-secondary-dark mt-5 lg:mt-8 opacity-60 text-sm lg:text-start font-[lato] text-center">
                                   {project.date}
                               </span>
                         </div>

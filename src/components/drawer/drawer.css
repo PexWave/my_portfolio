@@ -14,4 +14,6 @@
     width: 100vw;
 
 }
-
+    .MuiTypography-root:hover{
+        color: #333 !important;
+    }
