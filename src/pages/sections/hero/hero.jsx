@@ -103,8 +103,8 @@ export default function Hero({personalInfo, isFirstLoad}) {
               </div>
 
      <div  className='flex flex-row text-white items-end pr-2 w-full h-min'>
-        {socMedLink?.map((info,index) => {
-          return(
+     {personalInfo && 
+        personalInfo[0].user_socmed.map((info, index) => (
           <div key={index}>
             <div className='p-2 rounded-xl text-black hover:text-black transition ease-in-out delay-150 hover:scale-110 duration-300'>
                       
@@ -132,8 +132,8 @@ export default function Hero({personalInfo, isFirstLoad}) {
                      
                 </div>
           </div>
-          )
-      })}
+       ))
+      }
         </div>
 
             </motion.div>
