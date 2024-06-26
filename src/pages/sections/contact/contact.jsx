@@ -33,8 +33,8 @@ export default function ContactPage({personalInfo}) {
 
   //VALIDATION
   const validationSchema = {
-    name: { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i },
-    subject: { required: true, maxLength: 250, pattern: /^[A-Za-z]+$/i },
+    name: { required: true, maxLength: 20 },
+    subject: { required: true, maxLength: 250 },
     email: { required: true, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g },
     message: { required: true },
   };
